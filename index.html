@@ -11,13 +11,64 @@
         min-height: 100vh;
         background: linear-gradient(135deg, #120b18, #30152d, #160b20);
         font-family: Arial, sans-serif;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .portada {
+        width: 90%;
+        max-width: 500px;
+    }
+
+    h1 {
+        color: white;
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        color: #e8cfe3;
+        font-size: 20px;
+        margin-bottom: 35px;
+    }
+
+    button {
+        background: #d86bb5;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        transition: transform 0.2s, background 0.2s;
+    }
+
+    button:hover {
+        background: #e58ac7;
+        transform: scale(1.05);
+    }
+
+    button:active {
+        transform: scale(0.95);
     }
 </style>
 
 </head>
 <body>
-<h1>Feliz cumpleaños, Ale ❤️</h1>
+
+<div class="portada">
+
+    <h1>Feliz cumpleaños, Ale ❤️</h1>
+
     <p>Preparé algo para vos...</p>
+
     <button>Esto es para vos ❤️</button>
+
+</div>
+
 </body>
 </html>
