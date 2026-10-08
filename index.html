@@ -158,6 +158,210 @@ img {
     </p>
 
 </div>
+    <!-- REPRODUCTOR DE VOZ -->
+<div class="reproductor-voz">
+
+    <div class="texto-audio">🎙️ Escuchá esto ❤️</div>
+
+    <div class="audio-contenedor">
+
+        <button id="botonAudio" onclick="reproducirAudio()">▶</button>
+
+        <div class="onda" id="onda"></div>
+
+        <div class="tiempo">
+            <span id="tiempoActual">0:00</span>
+            <span id="duracionAudio">0:00</span>
+        </div>
+
+    </div>
+
+    <audio id="audioMensaje" src="72673.m4a"></audio>
+
+</div>
+
+<style>
+.reproductor-voz {
+    width: 90%;
+    max-width: 450px;
+    margin: 55px auto 20px;
+    text-align: center;
+}
+
+.texto-audio {
+    color: #e8cfe3;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+.audio-contenedor {
+    position: relative;
+    padding: 18px 20px 14px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+#botonAudio {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    background: #d86bb5;
+    color: white;
+    border: none;
+    font-size: 19px;
+    position: relative;
+    z-index: 2;
+    float: left;
+    margin: 2px 15px 0 0;
+}
+
+#botonAudio:active {
+    transform: scale(0.92);
+}
+
+.onda {
+    height: 52px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    overflow: hidden;
+}
+
+.onda span {
+    width: 3px;
+    min-height: 5px;
+    border-radius: 5px;
+    background: #8d4c7d;
+    transition: background 0.15s;
+}
+
+.onda span.activa {
+    background: #e58ac7;
+}
+
+.tiempo {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+    padding-left: 65px;
+    color: #cdaac7;
+    font-size: 11px;
+}
+
+.reproductor-voz::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+</style>
+
+<script>
+
+const audioMensaje = document.getElementById("audioMensaje");
+const botonAudio = document.getElementById("botonAudio");
+const onda = document.getElementById("onda");
+const tiempoActual = document.getElementById("tiempoActual");
+const duracionAudio = document.getElementById("duracionAudio");
+
+const alturas = [
+    12, 25, 18, 35, 22, 42, 28, 15,
+    32, 45, 24, 18, 38, 29, 20, 43,
+    31, 16, 36, 47, 26, 19, 40, 30,
+    22, 44, 34, 17, 28, 41, 25, 14,
+    37, 46, 21, 33, 27, 43, 18, 30,
+    39, 24, 16, 35, 45, 29, 20, 38
+];
+
+alturas.forEach(function(altura) {
+
+    const barra = document.createElement("span");
+
+    barra.style.height = altura + "px";
+
+    onda.appendChild(barra);
+
+});
+
+const barras = document.querySelectorAll(".onda span");
+
+function formatoTiempo(segundos) {
+
+    if (!isFinite(segundos)) {
+        return "0:00";
+    }
+
+    const minutos = Math.floor(segundos / 60);
+    const segundosRestantes = Math.floor(segundos % 60);
+
+    return minutos + ":" + String(segundosRestantes).padStart(2, "0");
+}
+
+audioMensaje.addEventListener("loadedmetadata", function() {
+
+    duracionAudio.textContent = formatoTiempo(audioMensaje.duration);
+
+});
+
+function reproducirAudio() {
+
+    if (audioMensaje.paused) {
+
+        audioMensaje.play();
+
+        botonAudio.textContent = "Ⅱ";
+
+    } else {
+
+        audioMensaje.pause();
+
+        botonAudio.textContent = "▶";
+
+    }
+
+}
+
+audioMensaje.addEventListener("timeupdate", function() {
+
+    tiempoActual.textContent =
+        formatoTiempo(audioMensaje.currentTime);
+
+    const progreso =
+        audioMensaje.currentTime / audioMensaje.duration;
+
+    barras.forEach(function(barra, indice) {
+
+        if (indice < progreso * barras.length) {
+
+            barra.classList.add("activa");
+
+        } else {
+
+            barra.classList.remove("activa");
+
+        }
+
+    });
+
+});
+
+audioMensaje.addEventListener("ended", function() {
+
+    botonAudio.textContent = "▶";
+
+    tiempoActual.textContent = "0:00";
+
+    barras.forEach(function(barra) {
+
+        barra.classList.remove("activa");
+
+    });
+
+});
+
+</script>
     <script>
 function mostrarCarta() {
     document.getElementById("introduccion").classList.add("oculto");
