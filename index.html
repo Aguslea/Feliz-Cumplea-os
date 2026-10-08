@@ -110,8 +110,14 @@ function mostrarCarta() {
     document.getElementById("introduccion").classList.add("oculto");
 
     setTimeout(function() {
-        document.getElementById("carta").style.display = "block";
-    }, 1500);
+    const carta = document.getElementById("carta");
+    carta.style.display = "block";
+
+    setTimeout(function() {
+        carta.classList.add("visible");
+    }, 50);
+
+}, 1500);
 }
 </script>
 </body>
