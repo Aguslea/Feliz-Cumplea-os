@@ -64,9 +64,13 @@
 
     <h1>Feliz cumpleaños, Ale ❤️</h1>
 
-    <p>Algunos regalos no se pueden envolver...</p>
+    <div id="introduccion">
 
-    <button onclick="mostrarCarta()">Tu Regalo 🎁</button>
+    <p>Hay cosas que no entran en una caja.</p>
+
+    <button onclick="mostrarCarta()">Abrí esto 🎁 a</button>
+
+</div>
 
     <div id="carta" style="display: none; margin-top: 40px; color: white;">
 
@@ -81,8 +85,9 @@
 </div>
     <script>
 function mostrarCarta() {
+    document.getElementById("introduccion").style.display = "none";
     document.getElementById("carta").style.display = "block";
 }
-    </script>
+</script>
 </body>
 </html>
