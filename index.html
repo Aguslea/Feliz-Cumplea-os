@@ -464,28 +464,36 @@ function mostrarCarta() {
 }
 </script>
     <script>
+let audioBoton;
+
 function sonidoBoton() {
 
-    const audio = new AudioContext();
+    if (!audioBoton) {
+        audioBoton = new (window.AudioContext || window.webkitAudioContext)();
+    }
 
-    const oscilador = audio.createOscillator();
-    const volumen = audio.createGain();
+    if (audioBoton.state === "suspended") {
+        audioBoton.resume();
+    }
+
+    const oscilador = audioBoton.createOscillator();
+    const volumen = audioBoton.createGain();
 
     oscilador.connect(volumen);
-    volumen.connect(audio.destination);
+    volumen.connect(audioBoton.destination);
 
     oscilador.frequency.value = 700;
-    volumen.gain.value = 0.08;
 
-    oscilador.start();
+    volumen.gain.setValueAtTime(0.08, audioBoton.currentTime);
 
     volumen.gain.exponentialRampToValueAtTime(
         0.001,
-        audio.currentTime + 0.15
+        audioBoton.currentTime + 0.15
     );
 
-    oscilador.stop(audio.currentTime + 0.15);
+    oscilador.start();
+    oscilador.stop(audioBoton.currentTime + 0.15);
 }
-    </script>
+</script>
 </body>
 </html>
