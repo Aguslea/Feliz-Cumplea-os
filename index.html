@@ -167,7 +167,7 @@ img {
 
     <p>Hay cosas que no entran en una caja.</p>
 
-    <button onclick="mostrarCarta()">Abrí esto 🎁</button>
+    <button onclick="sonidoBoton(); mostrarCarta()">Abrí esto 🎁</button>
 
 </div>
 
@@ -179,7 +179,7 @@ img {
         Hay algo que quiero decirte...
     </p>
 
-    <button onclick="mostrarCartaCompleta()"> 💌 </button>
+    <button onclick="sonidoBoton(); mostrarCartaCompleta()"> 💌 </button>
 
 </div>
 
@@ -463,5 +463,29 @@ function mostrarCarta() {
     }, 50);
 }
 </script>
+    <script>
+function sonidoBoton() {
+
+    const audio = new AudioContext();
+
+    const oscilador = audio.createOscillator();
+    const volumen = audio.createGain();
+
+    oscilador.connect(volumen);
+    volumen.connect(audio.destination);
+
+    oscilador.frequency.value = 700;
+    volumen.gain.value = 0.08;
+
+    oscilador.start();
+
+    volumen.gain.exponentialRampToValueAtTime(
+        0.001,
+        audio.currentTime + 0.15
+    );
+
+    oscilador.stop(audio.currentTime + 0.15);
+}
+    </script>
 </body>
 </html>
