@@ -85,7 +85,7 @@
 
     <div id="carta" style="display: none; margin-top: 40px; color: white;">
 
-        <h2>Para vos, Ale ❤️</h2>
+        <h2>Es para vos</h2>
 
         <p>
             Hay algo que quiero decirte...
@@ -96,8 +96,11 @@
 </div>
     <script>
 function mostrarCarta() {
-    document.getElementById("introduccion").style.display = "none";
-    document.getElementById("carta").style.display = "block";
+    document.getElementById("introduccion").classList.add("oculto");
+
+    setTimeout(function() {
+        document.getElementById("carta").style.display = "block";
+    }, 800);
 }
 </script>
 </body>
