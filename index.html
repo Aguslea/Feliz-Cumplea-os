@@ -418,6 +418,25 @@ audioMensaje.addEventListener("ended", function() {
 
 </script>
     <script>
+function crearBrillo() {
+
+    const brillo = document.createElement("div");
+
+    brillo.classList.add("brillo");
+
+    brillo.style.left = Math.random() * 100 + "%";
+    brillo.style.top = Math.random() * 100 + "%";
+
+    document.getElementById("brillos").appendChild(brillo);
+
+    setTimeout(function() {
+        brillo.remove();
+    }, 3000);
+}
+
+setInterval(crearBrillo, 500);
+</script>
+    <script>
 function mostrarCarta() {
     document.getElementById("introduccion").classList.add("oculto");
 
