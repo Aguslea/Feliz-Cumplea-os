@@ -111,12 +111,13 @@ img {
 
 .brillo {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 2px;
+    height: 2px;
     border-radius: 50%;
-    background: white;
-    box-shadow: 0 0 8px 2px #e58ac7;
+    background: #fff2b0;
+    box-shadow: 0 0 5px 1px #e8c96a;
     animation: aparecerBrillo 3s ease-in-out forwards;
+
 }
 
 @keyframes aparecerBrillo {
@@ -434,7 +435,7 @@ function crearBrillo() {
     }, 3000);
 }
 
-setInterval(crearBrillo, 500);
+setInterval(crearBrillo, 200);
 </script>
     <script>
 function mostrarCarta() {
