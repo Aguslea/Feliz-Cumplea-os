@@ -52,9 +52,20 @@
         transform: scale(1.05);
     }
 
-    button:active {
+        button:active {
         transform: scale(0.95);
     }
+
+    #introduccion {
+        opacity: 1;
+        transition: opacity 0.8s ease;
+    }
+
+    #introduccion.oculto {
+        opacity: 0;
+        pointer-events: none;
+    }
+
 </style>
 
 </head>
