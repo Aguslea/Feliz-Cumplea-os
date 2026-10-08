@@ -66,9 +66,22 @@
 
     <p>Preparé algo para vos...</p>
 
-    <button>Esto es para vos ❤️</button>
+    <button onclick="mostrarCarta()">Tu Regalo 🎁</button>
 
 </div>
+<div id="carta" style="display: none; margin-top: 40px; color: white;">
 
+    <h2>Para vos, Ale ❤️</h2>
+
+    <p>
+        Hay algo que quiero decirte...
+    </p>
+
+</div>
+    <script>
+function mostrarCarta() {
+    document.getElementById("carta").style.display = "block";
+}
+    </script>
 </body>
 </html>
