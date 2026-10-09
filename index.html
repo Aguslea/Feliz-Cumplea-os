@@ -176,20 +176,24 @@ img {
     opacity: 0;
 }
 
+
 .cometa::after {
     content: "";
     position: absolute;
     top: 50%;
-    right: 2px;
-    width: 100px;
+    left: 2px;
+    width: 120px;
     height: 2px;
     transform: translateY(-50%);
     background: linear-gradient(
-        to left,
-        rgba(255, 245, 200, 0.9),
-        rgba(255, 220, 150, 0)
+        to right,
+        rgba(255, 250, 225, 0.95),
+        rgba(255, 225, 160, 0.45) 35%,
+        rgba(255, 220, 150, 0) 100%
     );
+    filter: blur(0.5px);
 }
+
 
 .cometa.pasar {
     animation: cruzarCometa 1.8s ease-out forwards;
