@@ -401,6 +401,58 @@ if (audioMensaje && botonAudio) {
             } else {
                 audioMensaje.pause();
             }
-        } catch (error) {
-           </body>
+                    errorAudio.style.display = "block";
+        }
+    });
+}
+
+/* AMPLIAR FOTOS */
+
+const modalFoto = document.getElementById("modalFoto");
+const fotoAmpliada = document.getElementById("fotoAmpliada");
+const textoFotoAmpliada = document.getElementById("textoFotoAmpliada");
+const cerrarFoto = document.getElementById("cerrarFoto");
+
+document.querySelectorAll(".foto-recuerdo").forEach(function (foto) {
+    foto.addEventListener("click", function () {
+        fotoAmpliada.src = foto.src;
+        fotoAmpliada.alt = foto.alt;
+
+        textoFotoAmpliada.textContent =
+            foto.dataset.texto || foto.alt || "";
+
+        modalFoto.classList.add("abierto");
+        modalFoto.setAttribute("aria-hidden", "false");
+    });
+});
+
+function cerrarModalFoto() {
+    modalFoto.classList.remove("abierto");
+    modalFoto.setAttribute("aria-hidden", "true");
+    fotoAmpliada.src = "";
+}
+
+if (cerrarFoto) {
+    cerrarFoto.addEventListener("click", cerrarModalFoto);
+}
+
+if (modalFoto) {
+    modalFoto.addEventListener("click", function (evento) {
+        if (evento.target === modalFoto) {
+            cerrarModalFoto();
+        }
+    });
+}
+
+document.addEventListener("keydown", function (evento) {
+    if (
+        evento.key === "Escape" &&
+        modalFoto.classList.contains("abierto")
+    ) {
+        cerrarModalFoto();
+    }
+});
+</script>
+
+</body>
 </html>
