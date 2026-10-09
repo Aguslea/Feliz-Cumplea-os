@@ -1,456 +1,682 @@
-<!-- ¡Feliz cumpleaños! -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#24103f">
+<title>Para Ale ❤️</title>
 
-<section id="introduccion">
-    <p style="color:#d0cbd2">Hay cosas que no entran en una caja.</p>
-
-    <button type="button" class="boton-sorpresa" id="botonAbrir">
-        Abrí esto 🎁
-    </button>
-</section>
-
-<section id="carta" style="display:none; margin-top:40px; color:white">
-    <h2>Es para vos</h2>
-
-    <p style="color:#d0cbd2">Hay algo que quiero decirte...</p>
-
-    <button
-        type="button"
-        class="boton-sorpresa"
-        id="botonCarta"
-        aria-label="Abrir la carta"
-    >
-        💌
-    </button>
-</section>
-
-<section id="cartaCompleta" style="display:none; margin-top:40px; color:white">
-
-    <!-- INTRODUCCIÓN DE LA CARTA -->
-
-    <h2>Qué lindo es coincidir con vos en esta vida, amor.</h2>
-
-    <p>
-        De todas las personas que podría haber conocido, qué lindo que
-        nuestros caminos se hayan cruzado. Me gusta tenerte en mi vida,
-        compartir mis días con vos y descubrir que hasta los momentos más
-        simples pueden convertirse en recuerdos que guardo con mucho cariño.
-    </p>
-
-    <!-- SEPARADOR DECORATIVO -->
-
-    <div class="separador-carta" aria-hidden="true">
-        ✧･ﾟ: ✧･ﾟ: ═════════ :･ﾟ✧:･ﾟ✧
-    </div>
-
-    <!-- CARTA ORIGINAL -->
-
-    <p>
-        Hay cosas que siento que son más fáciles de vivir que de explicar...
-    </p>
-
-    <img
-        class="foto-recuerdo"
-        src="foto1.png"
-        alt="Ale en Monte"
-        data-texto="Ese día fuimos a Monte… Te veías hermosa todo el día. ❤️"
-        loading="lazy"
-    >
-
-    <p>
-        Pero hoy quería regalarte algo distinto. Algo hecho pensando en vos
-        y en todos esos momentos que compartimos.
-    </p>
-
-    <p>
-        Me gusta pensar en todo lo que compartimos. Las charlas, las risas,
-        los mates, los viajes, las noches juntos, las pequeñas cosas que
-        quizás parecen simples, pero que para mí significan muchísimo.
-    </p>
-
-    <img
-        class="foto-recuerdo"
-        src="foto2.jpg"
-        alt="Un recuerdo juntos"
-        loading="lazy"
-    >
-
-    <p>
-        Y aunque no sé exactamente qué nos espera más adelante, de algo estoy
-        seguro, amor: me hace feliz compartir el camino con vos.
-    </p>
-
-    <!-- Se quitó el párrafo independiente "Feliz cumpleaños, Ale ❤️" -->
-
-    <p>
-        Espero que este nuevo año de tu vida te encuentre rodeada de cosas
-        lindas, de proyectos, de momentos que te hagan feliz y de personas
-        que te quieran de verdad.
-    </p>
-
-    <img
-        class="foto-recuerdo"
-        src="foto3.jpg"
-        alt="Otro recuerdo juntos"
-        loading="lazy"
-    >
-
-    <p>
-        Y ojalá esta página, que me costó muchísimo hacer, pueda hacerte
-        recordar, aunque sea por un ratito, lo especial que sos para mí.
-    </p>
-
-    <!-- SEGUNDO SEPARADOR DECORATIVO -->
-
-    <div class="separador-carta" aria-hidden="true">
-        ✧･ﾟ: ✧･ﾟ: ═════════ :･ﾟ✧:･ﾟ✧
-    </div>
-
-    <!-- REPRODUCTOR DE AUDIO CON EL SALUDO EN EL BORDE -->
-
-    <div class="reproductor-voz">
-
-        <fieldset class="audio-marco">
-
-            <legend class="audio-saludo">
-                Feliz cumpleaños, Ale ❤️
-            </legend>
-
-            <div class="texto-audio">
-                🎙️ Escuchá esto ❤️
-            </div>
-
-            <div class="audio-contenedor">
-
-                <button
-                    type="button"
-                    id="botonAudio"
-                    aria-label="Reproducir audio"
-                >
-                    ▶
-                </button>
-
-                <div class="onda" id="onda" aria-hidden="true"></div>
-
-                <div class="tiempo">
-                    <span id="tiempoActual">0:00</span>
-                    <span id="duracionAudio">0:00</span>
-                </div>
-
-            </div>
-
-            <p id="errorAudio" role="status" style="display:none">
-                No se pudo reproducir el audio. Revisá que el archivo
-                72673.m4a esté subido junto a index.html.
-            </p>
-
-            <audio
-                id="audioMensaje"
-                src="72673.m4a"
-                preload="metadata"
-            ></audio>
-
-        </fieldset>
-
-    </div>
-
-</section>
-
-<!-- VENTANA PARA AMPLIAR LAS FOTOS -->
-
-<div id="modalFoto" class="modal-foto" aria-hidden="true">
-
-    <button
-        type="button"
-        id="cerrarFoto"
-        class="cerrar-foto"
-        aria-label="Cerrar foto"
-    >
-        ×
-    </button>
-
-    <img id="fotoAmpliada" src="" alt="Foto ampliada">
-
-    <p id="textoFotoAmpliada"></p>
-
-</div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-    /* SEPARADORES DE LA CARTA */
+:root {
+  --fondo: #170d29;
+  --violeta: #6c42a0;
+  --rosa: #f0b9dc;
+  --blanco: #fff8ff;
+  --texto: #f6eefa;
+  --suave: #d9c8e6;
+}
 
-    .separador-carta {
-        margin: 30px auto;
-        color: #e8c9f5;
-        font-size: clamp(12px, 3.2vw, 18px);
-        letter-spacing: 1px;
-        text-align: center;
-        line-height: 1.8;
-        text-shadow: 0 0 10px rgba(232, 201, 245, 0.45);
-        overflow-wrap: anywhere;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    /* MARCO DEL REPRODUCTOR */
+html {
+  scroll-behavior: smooth;
+}
 
-    .audio-marco {
-        min-width: 0;
-        margin: 25px 0;
-        padding: 18px 14px;
-        border: 1px solid rgba(232, 201, 245, 0.75);
-        border-radius: 16px;
-        box-shadow: 0 0 18px rgba(208, 150, 255, 0.16);
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--texto);
+  font-family: 'Montserrat', sans-serif;
+  background:
+    radial-gradient(ellipse at top, #492565 0%, transparent 55%),
+    linear-gradient(160deg, #170d29, #29143f 55%, #120b20);
+  overflow-x: hidden;
+}
 
-    /* SALUDO INTEGRADO EN EL BORDE */
+body::before {
+  content: "✧     ♡       ✦       ♡     ✧";
+  position: fixed;
+  top: 8%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: rgba(255, 220, 255, 0.13);
+  font-size: 25px;
+  letter-spacing: 15px;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    .audio-saludo {
-        padding: 0 12px;
-        margin: 0 auto;
-        color: #f5d7ff;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        text-shadow: 0 0 10px rgba(232, 201, 245, 0.4);
-    }
+button {
+  font-family: inherit;
+}
 
-    .texto-audio {
-        margin: 5px 0 16px;
-        color: #f0d8ff;
-        text-align: center;
-        font-size: 15px;
-    }
+.contenedor {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 30px, 720px);
+  margin: 0 auto;
+  padding: 35px 0 45px;
+}
 
-    .audio-contenedor {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        width: 100%;
-        box-sizing: border-box;
-    }
+.portada {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px 10px;
+  animation: aparecer 1.2s ease both;
+}
 
-    .audio-contenedor button {
-        flex-shrink: 0;
-        cursor: pointer;
-    }
+.mini-titulo {
+  color: var(--rosa);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
 
-    .onda {
-        flex: 1;
-        min-width: 0;
-    }
+.portada h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(38px, 9vw, 62px);
+  line-height: 1.15;
+  font-weight: 400;
+  margin: 0 0 18px;
+  color: var(--blanco);
+  text-shadow: 0 0 35px rgba(240, 185, 220, 0.2);
+}
 
-    .tiempo {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        flex-shrink: 0;
-        color: #d0cbd2;
-        font-size: 12px;
-        text-align: right;
-    }
+.portada p {
+  color: var(--suave);
+  line-height: 1.8;
+  font-size: 14px;
+  max-width: 440px;
+  margin: 0 auto 30px;
+}
 
-    #errorAudio {
-        margin-top: 12px;
-        color: #ffd1d1;
-        font-size: 13px;
-        line-height: 1.5;
-    }
+.boton-principal {
+  border: 1px solid rgba(255, 224, 255, 0.5);
+  border-radius: 50px;
+  color: white;
+  background: linear-gradient(135deg, #8b58b8, #bd6fa8);
+  padding: 15px 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
 
-    /* VENTANA DE FOTOS AMPLIADAS */
+.boton-principal:active {
+  transform: scale(0.97);
+}
 
-    .modal-foto {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        padding: 24px;
-        box-sizing: border-box;
-        background: rgba(12, 5, 20, 0.94);
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
+.boton-principal:hover {
+  box-shadow: 0 10px 35px rgba(189, 111, 168, 0.3);
+}
 
-    .modal-foto.abierto {
-        display: flex;
-    }
+.decoracion {
+  text-align: center;
+  color: var(--rosa);
+  opacity: 0.85;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin: 25px 0;
+  overflow-wrap: anywhere;
+}
 
-    .modal-foto img {
-        display: block;
-        max-width: 95%;
-        max-height: 75vh;
-        object-fit: contain;
-        border-radius: 12px;
-        box-shadow: 0 0 25px rgba(232, 201, 245, 0.2);
-    }
+.carta {
+  display: none;
+  animation: aparecer 1s ease both;
+}
 
-    .cerrar-foto {
-        position: absolute;
-        top: 12px;
-        right: 20px;
-        border: none;
-        background: transparent;
-        color: white;
-        font-size: 42px;
-        cursor: pointer;
-    }
+.carta.visible {
+  display: block;
+}
 
-    #textoFotoAmpliada {
-        max-width: 600px;
-        margin-top: 16px;
-        color: #f5e8ff;
-        text-align: center;
-    }
+.introduccion {
+  text-align: center;
+  padding: 15px 5px 25px;
+}
 
-    .foto-recuerdo {
-        cursor: zoom-in;
-    }
+.introduccion h2 {
+  font-family: 'Lora', serif;
+  font-size: clamp(25px, 6vw, 36px);
+  line-height: 1.35;
+  font-weight: 400;
+  color: var(--blanco);
+  margin: 0 0 18px;
+}
+
+.introduccion p,
+.texto-carta {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  line-height: 1.95;
+  color: var(--suave);
+}
+
+.bloque-texto {
+  padding: 5px 7px;
+  margin: 25px 0;
+}
+
+.foto-marco {
+  margin: 30px auto;
+  padding: 9px;
+  border: 1px solid rgba(232, 201, 244, 0.35);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.23);
+}
+
+.foto-marco img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  border-radius: 11px;
+  cursor: zoom-in;
+}
+
+.pie-foto {
+  font-family: 'Lora', serif;
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+  color: var(--rosa);
+  padding: 13px 5px 5px;
+  line-height: 1.7;
+}
+
+.cierre {
+  text-align: center;
+  padding: 20px 5px;
+}
+
+.cierre h2 {
+  font-family: 'Lora', serif;
+  color: var(--rosa);
+  font-weight: 400;
+  font-size: clamp(28px, 7vw, 39px);
+  line-height: 1.35;
+}
+
+.cierre p {
+  font-family: 'Lora', serif;
+  line-height: 1.9;
+  color: var(--suave);
+}
+
+.firma {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--rosa);
+  text-align: center;
+  margin-top: 30px;
+}
+
+.audio-caja {
+  border: 1px solid rgba(232, 201, 244, 0.3);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.055);
+  padding: 22px 16px;
+  margin: 25px 0;
+  text-align: center;
+}
+
+.audio-caja h3 {
+  font-family: 'Lora', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--rosa);
+  margin: 0 0 12px;
+}
+
+.audio-caja p {
+  color: var(--suave);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.audio-controles {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.boton-audio {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  background: linear-gradient(135deg, #8b58b8, #bd6fa8);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.audio-derecha {
+  flex: 1;
+  min-width: 0;
+}
+
+.onda {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.onda span {
+  width: 3px;
+  min-width: 2px;
+  border-radius: 5px;
+  height: var(--alto);
+  background: linear-gradient(to top, #9c70c9, #f0b9dc);
+  opacity: 0.8;
+}
+
+.onda.reproduciendo span {
+  animation: onda 0.7s ease-in-out infinite alternate;
+  animation-delay: var(--retraso);
+}
+
+.tiempos {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--suave);
+  margin-top: 5px;
+}
+
+.error-audio {
+  color: #ffc4d8;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.pie-pagina {
+  text-align: center;
+  color: rgba(255, 240, 255, 0.5);
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 35px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(8, 4, 15, 0.94);
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal.visible {
+  display: flex;
+}
+
+.modal img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.cerrar-modal {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes onda {
+  from { transform: scaleY(0.45); }
+  to { transform: scaleY(1.2); }
+}
+
+@media (max-width: 420px) {
+  .contenedor {
+    width: calc(100% - 24px);
+  }
+
+  .texto-carta,
+  .introduccion p {
+    font-size: 15px;
+  }
+
+  .foto-marco {
+    padding: 7px;
+  }
+}
 </style>
+</head>
+<body>
+    <div class="contenedor">
 
+  <section class="portada" id="portada">
+    <div class="mini-titulo">Un pequeño regalo para vos</div>
+
+    <h1>Para Ale<br>con mucho amor ♡</h1>
+
+    <p>
+      Hay algo que preparé especialmente para vos.
+      No es un regalo enorme, pero está hecho con mucho cariño.
+    </p>
+
+    <button class="boton-principal" id="abrirRegalo">
+      Abrí esto 🎁
+    </button>
+  </section>
+
+  <main class="carta" id="carta">
+
+    <div class="decoracion">✧･ﾟ: ✧･ﾟ: ═════════ :･ﾟ✧:･ﾟ✧</div>
+
+    <section class="introduccion">
+      <h2>Qué lindo es coincidir con vos en esta vida, amor.</h2>
+
+      <p>
+        De todas las personas que podría haber conocido, qué lindo
+        que nuestros caminos se hayan cruzado. Me gusta tenerte en
+        mi vida, compartir mis días con vos y descubrir que hasta
+        los momentos más simples pueden convertirse en recuerdos
+        que guardo con mucho cariño.
+      </p>
+    </section>
+
+    <div class="decoracion">♡ ─────── ✧ ─────── ♡</div>
+
+    <section class="bloque-texto">
+      <p class="texto-carta">
+        Hay cosas que siento que son más fáciles de vivir que de
+        explicar. A veces me cuesta encontrar las palabras justas
+        para decirte todo lo que significás para mí, pero eso no
+        cambia lo mucho que me importa tenerte cerca y compartir
+        momentos con vos.
+      </p>
+    </section>
+
+    <figure class="foto-marco">
+      <img
+        src="foto1.png"
+        alt="Ale en Monte"
+        class="foto-ampliable"
+        loading="lazy"
+      >
+      <figcaption class="pie-foto">
+        Ese día fuimos a Monte… Te veías hermosa todo el día. ❤️
+      </figcaption>
+    </figure>
+
+    <section class="bloque-texto">
+      <p class="texto-carta">
+        Pero hoy quería regalarte algo distinto. Algo hecho
+        pensando en vos y en todos esos momentos que compartimos.
+      </p>
+
+      <p class="texto-carta">
+        Me gusta pensar en todo lo que compartimos. Las charlas,
+        las risas, los mates, los viajes, las noches juntos, las
+        pequeñas cosas que quizás parecen simples, pero que para
+        mí significan muchísimo.
+      </p>
+    </section>
+
+    <figure class="foto-marco">
+      <img
+        src="foto2.jpg"
+        alt="Un recuerdo de Ale"
+        class="foto-ampliable"
+        loading="lazy"
+      >
+      <figcaption class="pie-foto">
+        Un recuerdo más de todos los que me gusta guardar con vos. ♡
+      </figcaption>
+    </figure>
+
+    <section class="bloque-texto">
+      <p class="texto-carta">
+        Y aunque no sé exactamente qué nos espera más adelante,
+        de algo estoy seguro, amor: me hace feliz compartir el
+        camino con vos.
+      </p>
+    </section>
+
+    <div class="decoracion">✧･ﾟ: ✧･ﾟ: ═════════ :･ﾟ✧:･ﾟ✧</div>
+
+    <section class="cierre">
+      <h2>Feliz cumpleaños, Ale ❤️</h2>
+
+      <p>
+        Espero que este nuevo año de tu vida te encuentre rodeada
+        de cosas lindas, de proyectos, de momentos que te hagan
+        feliz y de personas que te quieran de verdad.
+      </p>
+    </section>
+
+    <figure class="foto-marco">
+      <img
+        src="foto3.jpg"
+        alt="Una foto de nosotros"
+        class="foto-ampliable"
+        loading="lazy"
+      >
+      <figcaption class="pie-foto">
+        Vos y yo, compartiendo nuestra pequeña parte del mundo. ❤️
+      </figcaption>
+    </figure>
+
+    <section class="bloque-texto">
+      <p class="texto-carta">
+        Y ojalá esta página, que me costó muchísimo hacer, pueda
+        hacerte recordar, aunque sea por un ratito, lo especial
+        que sos para mí.
+      </p>
+    </section>
+
+    <div class="decoracion">✧･ﾟ: ✧･ﾟ: ═════════ :･ﾟ✧:･ﾟ✧</div>
+
+    <section class="audio-caja">
+      <h3>Feliz cumpleaños, Ale ❤️</h3>
+
+      <p>🎙️ Escuchá esto ❤️</p>
+
+      <div class="audio-controles">
+        <button
+          class="boton-audio"
+          id="botonAudio"
+          aria-label="Reproducir audio"
+          type="button"
+        >▶</button>
+
+        <div class="audio-derecha">
+          <div class="onda" id="onda" aria-hidden="true"></div>
+
+          <div class="tiempos">
+            <span id="tiempoActual">0:00</span>
+            <span id="duracion">0:00</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="error-audio" id="errorAudio" hidden>
+        No se pudo cargar el audio. Revisá que el archivo
+        72673.m4a esté junto a index.html.
+      </p>
+
+      <audio id="audio" preload="metadata">
+        <source src="72673.m4a" type="audio/mp4">
+        Tu navegador no puede reproducir este audio.
+      </audio>
+    </section>
+
+    <div class="decoracion">♡ ─────── ✧ ─────── ♡</div>
+
+    <p class="firma">
+      Con mucho amor, para vos. ❤️
+    </p>
+
+    <div class="pie-pagina">
+      HECHO CON AMOR PARA ALE · ♡
+    </div>
+
+  </main>
+</div>
+
+<div class="modal" id="modalFoto" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="cerrar-modal" id="cerrarModal" aria-label="Cerrar foto">×</button>
+  <img id="fotoGrande" src="" alt="Foto ampliada">
+</div>
 <script>
-    /* BOTONES PARA ABRIR LA SORPRESA */
+const botonRegalo = document.getElementById('abrirRegalo');
+const portada = document.getElementById('portada');
+const carta = document.getElementById('carta');
 
-    const botonAbrir = document.getElementById("botonAbrir");
-    const botonCarta = document.getElementById("botonCarta");
+botonRegalo.addEventListener('click', function () {
+  botonRegalo.textContent = '💌 Abrir mi carta';
 
-    const introduccion = document.getElementById("introduccion");
-    const carta = document.getElementById("carta");
-const cartaCompleta = document.getElementById("cartaCompleta");
+  botonRegalo.onclick = function () {
+    carta.classList.add('visible');
+    portada.style.display = 'none';
 
-if (botonAbrir) {
-    botonAbrir.addEventListener("click", function () {
-        introduccion.style.display = "none";
-        carta.style.display = "block";
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
-}
-
-if (botonCarta) {
-    botonCarta.addEventListener("click", function () {
-        carta.style.display = "none";
-        cartaCompleta.style.display = "block";
-    });
-}
-
-/* REPRODUCTOR DE AUDIO */
-
-const audioMensaje = document.getElementById("audioMensaje");
-const botonAudio = document.getElementById("botonAudio");
-const tiempoActual = document.getElementById("tiempoActual");
-const duracionAudio = document.getElementById("duracionAudio");
-const errorAudio = document.getElementById("errorAudio");
-const onda = document.getElementById("onda");
-
-function formatoTiempo(segundos) {
-    if (!Number.isFinite(segundos) || segundos < 0) {
-        return "0:00";
-    }
-
-    const minutos = Math.floor(segundos / 60);
-    const segundosRestantes = Math.floor(segundos % 60);
-
-    return minutos + ":" + String(segundosRestantes).padStart(2, "0");
-}
-
-if (audioMensaje && botonAudio) {
-
-    audioMensaje.addEventListener("loadedmetadata", function () {
-        duracionAudio.textContent = formatoTiempo(audioMensaje.duration);
-        errorAudio.style.display = "none";
-    });
-
-    audioMensaje.addEventListener("timeupdate", function () {
-        tiempoActual.textContent = formatoTiempo(audioMensaje.currentTime);
-    });
-
-    audioMensaje.addEventListener("play", function () {
-        botonAudio.textContent = "❚❚";
-        botonAudio.setAttribute("aria-label", "Pausar audio");
-
-        if (onda) {
-            onda.classList.add("reproduciendo");
-        }
-    });
-
-    audioMensaje.addEventListener("pause", function () {
-        botonAudio.textContent = "▶";
-        botonAudio.setAttribute("aria-label", "Reproducir audio");
-
-        if (onda) {
-            onda.classList.remove("reproduciendo");
-        }
-    });
-
-    audioMensaje.addEventListener("ended", function () {
-        botonAudio.textContent = "▶";
-        botonAudio.setAttribute("aria-label", "Reproducir audio");
-
-        if (onda) {
-            onda.classList.remove("reproduciendo");
-        }
-
-        tiempoActual.textContent = formatoTiempo(audioMensaje.duration);
-    });
-
-    audioMensaje.addEventListener("error", function () {
-        errorAudio.style.display = "block";
-    });
-
-    botonAudio.addEventListener("click", async function () {
-        try {
-            if (audioMensaje.paused) {
-                errorAudio.style.display = "none";
-                await audioMensaje.play();
-            } else {
-                audioMensaje.pause();
-            }
-                    errorAudio.style.display = "block";
-        }
-    });
-}
-
-/* AMPLIAR FOTOS */
-
-const modalFoto = document.getElementById("modalFoto");
-const fotoAmpliada = document.getElementById("fotoAmpliada");
-const textoFotoAmpliada = document.getElementById("textoFotoAmpliada");
-const cerrarFoto = document.getElementById("cerrarFoto");
-
-document.querySelectorAll(".foto-recuerdo").forEach(function (foto) {
-    foto.addEventListener("click", function () {
-        fotoAmpliada.src = foto.src;
-        fotoAmpliada.alt = foto.alt;
-
-        textoFotoAmpliada.textContent =
-            foto.dataset.texto || foto.alt || "";
-
-        modalFoto.classList.add("abierto");
-        modalFoto.setAttribute("aria-hidden", "false");
-    });
+  };
 });
 
-function cerrarModalFoto() {
-    modalFoto.classList.remove("abierto");
-    modalFoto.setAttribute("aria-hidden", "true");
-    fotoAmpliada.src = "";
+const audio = document.getElementById('audio');
+const botonAudio = document.getElementById('botonAudio');
+const onda = document.getElementById('onda');
+const tiempoActual = document.getElementById('tiempoActual');
+const duracion = document.getElementById('duracion');
+const errorAudio = document.getElementById('errorAudio');
+
+for (let i = 0; i < 45; i++) {
+  const barra = document.createElement('span');
+  const alto = 6 + Math.floor(Math.random() * 26);
+
+  barra.style.setProperty('--alto', alto + 'px');
+  barra.style.setProperty('--retraso', (Math.random() * 0.7) + 's');
+
+  onda.appendChild(barra);
 }
 
-if (cerrarFoto) {
-    cerrarFoto.addEventListener("click", cerrarModalFoto);
+function formatoTiempo(segundos) {
+  if (!Number.isFinite(segundos)) {
+    return '0:00';
+  }
+
+  const minutos = Math.floor(segundos / 60);
+  const segundosRestantes = Math.floor(segundos % 60);
+
+  return minutos + ':' + String(segundosRestantes).padStart(2, '0');
 }
 
-if (modalFoto) {
-    modalFoto.addEventListener("click", function (evento) {
-        if (evento.target === modalFoto) {
-            cerrarModalFoto();
-        }
-    });
-}
+audio.addEventListener('loadedmetadata', function () {
+  duracion.textContent = formatoTiempo(audio.duration);
+  errorAudio.hidden = true;
+});
 
-document.addEventListener("keydown", function (evento) {
-    if (
-        evento.key === "Escape" &&
-        modalFoto.classList.contains("abierto")
-    ) {
-        cerrarModalFoto();
+audio.addEventListener('timeupdate', function () {
+  tiempoActual.textContent = formatoTiempo(audio.currentTime);
+});
+
+botonAudio.addEventListener('click', async function () {
+  if (audio.paused) {
+    try {
+      await audio.play();
+
+      botonAudio.textContent = '❚❚';
+      botonAudio.setAttribute('aria-label', 'Pausar audio');
+      onda.classList.add('reproduciendo');
+      errorAudio.hidden = true;
+    } catch (error) {
+      errorAudio.hidden = false;
     }
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener('pause', function () {
+  botonAudio.textContent = '▶';
+  botonAudio.setAttribute('aria-label', 'Reproducir audio');
+  onda.classList.remove('reproduciendo');
+});
+
+audio.addEventListener('ended', function () {
+  botonAudio.textContent = '▶';
+  onda.classList.remove('reproduciendo');
+});
+
+audio.addEventListener('error', function () {
+  errorAudio.hidden = false;
+});
+
+const modal = document.getElementById('modalFoto');
+const fotoGrande = document.getElementById('fotoGrande');
+const cerrarModal = document.getElementById('cerrarModal');
+
+document.querySelectorAll('.foto-ampliable').forEach(function (foto) {
+  foto.addEventListener('click', function () {
+    fotoGrande.src = foto.src;
+    fotoGrande.alt = foto.alt;
+    modal.classList.add('visible');
+  });
+});
+
+function cerrarFoto() {
+  modal.classList.remove('visible');
+  fotoGrande.src = '';
+}
+
+cerrarModal.addEventListener('click', cerrarFoto);
+
+modal.addEventListener('click', function (evento) {
+  if (evento.target === modal) {
+    cerrarFoto();
+  }
+});
+
+document.addEventListener('keydown', function (evento) {
+  if (evento.key === 'Escape') {
+    cerrarFoto();
+  }
 });
 </script>
 
