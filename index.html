@@ -5,54 +5,381 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Ale ❤️</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,400;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(circle at 30% 30%,#42153f,#0d0712 70%);background-size:200% 200%;font-family:Arial,sans-serif;animation:fondoMovimiento 6s ease-in-out infinite alternate;display:flex;justify-content:center;align-items:center;text-align:center;padding:30px 0}
-.portada{width:90%;max-width:500px;position:relative;z-index:1}
-h1{color:white;font-size:42px;margin-bottom:15px;font-family:Montserrat,sans-serif;font-weight:600}
-p{color:#e8cfe3;font-family:Lora,serif;font-style:italic;font-size:20px;line-height:1.7;margin-bottom:35px}
-button{background:#d86bb5;color:white;border:0;padding:15px 30px;border-radius:30px;font-size:18px;cursor:pointer;box-shadow:0 6px 20px #0005;transition:transform .2s,background .2s}
-button:hover{background:#e58ac7;transform:scale(1.05)}
-button:active{transform:scale(.95)}
-img.foto-recuerdo{width:85%;max-width:400px;height:auto;border-radius:18px;margin:15px auto 35px;display:block;box-shadow:0 8px 25px #0006;cursor:zoom-in;transition:transform .25s}
-img.foto-recuerdo:hover{transform:scale(1.02)}
-#introduccion{opacity:1;transition:opacity 1.5s}
-#introduccion.oculto{opacity:0;pointer-events:none}
-#carta{opacity:0;transform:translateY(15px);transition:opacity 1.2s,transform 1.2s}
-#carta.visible{opacity:1;transform:translateY(0)}
-#cartaCompleta{opacity:0;transform:translateY(20px);transition:opacity 2.5s,transform 2.5s}
-#cartaCompleta.visible{opacity:1;transform:translateY(0)}
-#brillos{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.brillo{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff2b0;box-shadow:0 0 5px 1px #e8c96a;animation:aparecerBrillo 3s ease-in-out forwards}
-@keyframes aparecerBrillo{0%{opacity:0;transform:scale(.4)}30%{opacity:1;transform:scale(1)}70%{opacity:.8;transform:scale(.8)}100%{opacity:0;transform:scale(.3)}}
-@keyframes fondoMovimiento{0%{background-position:0 0}50%{background-position:100% 50%}100%{background-position:0 100%}}
-.cometa{position:fixed;width:4px;height:4px;border-radius:50%;background:#fff9d6;box-shadow:0 0 8px 3px #ffe9a3;pointer-events:none;z-index:0;opacity:0}
-.cometa:after{content:"";position:absolute;top:50%;left:2px;width:120px;height:2px;transform:translateY(-50%);background:linear-gradient(to right,rgba(245,253,255,.95),rgba(190,235,255,.65) 35%,transparent);filter:blur(.5px)}
-.cometa.pasar{animation:cruzarCometa 1.8s ease-out forwards}
-@keyframes cruzarCometa{0%{opacity:0;transform:translate(0,0) rotate(-25deg)}15%{opacity:1}70%{opacity:.9}100%{opacity:0;transform:translate(-260px,300px) rotate(-25deg)}}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at 30% 30%, #42153f, #0d0712 70%);
+    background-size: 200% 200%;
+    font-family: Arial, sans-serif;
+    animation: fondoMovimiento 6s ease-in-out infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.portada {
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    color: white;
+    font-size: 42px;
+    margin-bottom: 15px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+}
+
+p {
+    color: #e8cfe3;
+    font-family: Lora, serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #d86bb5;
+    color: white;
+    border: 0;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px #0005;
+    transition: transform .2s, background .2s;
+}
+
+button:hover {
+    background: #e58ac7;
+    transform: scale(1.04);
+}
+
+button:active {
+    transform: scale(.96);
+}
+
+button:focus {
+    outline: none;
+}
+
+button:focus-visible {
+    outline: 2px solid rgba(255, 220, 150, .65);
+    outline-offset: 4px;
+}
+
+/* Animación sutil de los dos botones principales */
+.boton-sorpresa {
+    position: relative;
+    transform-origin: center;
+}
+
+.boton-sorpresa.animar-toque {
+    animation: toqueMagico .36s ease-out;
+}
+
+@keyframes toqueMagico {
+    0%   { transform: scale(1) rotate(0); }
+    30%  { transform: scale(.96) rotate(-1deg); }
+    65%  { transform: scale(1.035) rotate(1deg); }
+    100% { transform: scale(1) rotate(0); }
+}
+
+/* Pequeños destellos al tocar */
+.destello-toque {
+    position: fixed;
+    z-index: 10000;
+    pointer-events: none;
+    color: #ffe6a3;
+    text-shadow: 0 0 7px #ffd977;
+    font-size: 13px;
+    line-height: 1;
+    animation: destelloSubir .72s ease-out forwards;
+}
+
+@keyframes destelloSubir {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(.4) rotate(0);
+    }
+    25% {
+        opacity: .95;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--mov-x), var(--mov-y))
+                   scale(1.15) rotate(40deg);
+    }
+}
+
+img.foto-recuerdo {
+    width: 85%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 18px;
+    margin: 15px auto 35px;
+    display: block;
+    box-shadow: 0 8px 25px #0006;
+    cursor: zoom-in;
+    transition: transform .25s;
+}
+
+img.foto-recuerdo:hover {
+    transform: scale(1.02);
+}
+
+#introduccion {
+    opacity: 1;
+    transition: opacity 1.5s;
+}
+
+#introduccion.oculto {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#carta {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 1.2s, transform 1.2s;
+}
+
+#carta.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#cartaCompleta {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 2.5s, transform 2.5s;
+}
+
+#cartaCompleta.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Brillos ambientales */
+#brillos {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.brillo {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #fff2b0;
+    box-shadow: 0 0 5px 1px #e8c96a;
+    animation: aparecerBrillo 3s ease-in-out forwards;
+}
+
+@keyframes aparecerBrillo {
+    0%   { opacity: 0; transform: scale(.4); }
+    30%  { opacity: 1; transform: scale(1); }
+    70%  { opacity: .8; transform: scale(.8); }
+    100% { opacity: 0; transform: scale(.3); }
+}
+
+@keyframes fondoMovimiento {
+    0%   { background-position: 0 0; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0 100%; }
+}
+
+/* Cometas */
+.cometa {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff9d6;
+    box-shadow: 0 0 8px 3px #ffe9a3;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+}
+
+.cometa:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    width: 120px;
+    height: 2px;
+    transform: translateY(-50%);
+    background: linear-gradient(to right, rgba(245,253,255,.95), rgba(190,235,255,.65) 35%, transparent);
+    filter: blur(.5px);
+}
+
+.cometa.pasar {
+    animation: cruzarCometa 1.8s ease-out forwards;
+}
+
+@keyframes cruzarCometa {
+    0%   { opacity: 0; transform: translate(0,0) rotate(-25deg); }
+    15%  { opacity: 1; }
+    70%  { opacity: .9; }
+    100% { opacity: 0; transform: translate(-260px,300px) rotate(-25deg); }
+}
 
 /* Reproductor de voz */
-.reproductor-voz{width:90%;max-width:450px;margin:55px auto 20px;text-align:center}
-.texto-audio{color:#e8cfe3;font-size:17px;margin-bottom:18px}
-.audio-contenedor{padding:18px 20px 14px;border-radius:28px;background:#ffffff0f;border:1px solid #ffffff1a}
-#botonAudio{width:50px;height:50px;padding:0;border-radius:50%;font-size:19px;float:left;margin:2px 15px 0 0}
-.onda{height:52px;display:flex;align-items:flex-end;justify-content:center;gap:3px;overflow:hidden}
-.onda span{width:3px;min-height:5px;border-radius:5px;background:#8d4c7d}
-.onda span.activa{background:#e58ac7}
-.tiempo{display:flex;justify-content:space-between;margin-top:7px;padding-left:65px;color:#cdaac7;font-size:11px}
-.reproductor-voz:after{content:"";display:block;clear:both}
+.reproductor-voz {
+    width: 90%;
+    max-width: 450px;
+    margin: 55px auto 20px;
+    text-align: center;
+}
+
+.texto-audio {
+    color: #e8cfe3;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+.audio-contenedor {
+    padding: 18px 20px 14px;
+    border-radius: 28px;
+    background: #ffffff0f;
+    border: 1px solid #ffffff1a;
+}
+
+#botonAudio {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 19px;
+    float: left;
+    margin: 2px 15px 0 0;
+}
+
+.onda {
+    height: 52px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    overflow: hidden;
+}
+
+.onda span {
+    width: 3px;
+    min-height: 5px;
+    border-radius: 5px;
+    background: #8d4c7d;
+}
+
+.onda span.activa {
+    background: #e58ac7;
+}
+
+.tiempo {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+    padding-left: 65px;
+    color: #cdaac7;
+    font-size: 11px;
+}
+
+.reproductor-voz:after {
+    content: "";
+    display: block;
+    clear: both;
+}
 
 /* Fotos ampliadas */
-#visorFotos{display:none;position:fixed;inset:0;z-index:1000;background:rgba(8,3,12,.94);padding:60px 15px 25px;align-items:center;justify-content:center;flex-direction:column;overflow-y:auto}
-#visorFotos.abierto{display:flex}
-#fotoAmpliada{display:block;width:auto;height:auto;max-width:94vw;max-height:76vh;object-fit:contain;border-radius:14px;margin:auto;box-shadow:0 0 35px #d86bb533}
-#textoFoto{display:none;color:#f6ddec;font-family:Lora,serif;font-style:italic;font-size:17px;line-height:1.6;max-width:420px;margin:18px auto 5px;padding:0 8px}
-#cerrarVisor{position:absolute;top:12px;right:15px;width:44px;height:44px;padding:0;border-radius:50%;font-size:28px;background:#d86bb5}
-@media(max-width:480px){h1{font-size:34px}p{font-size:18px}#fotoAmpliada{max-height:72vh}#textoFoto{font-size:16px}}
+#visorFotos {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(8,3,12,.94);
+    padding: 60px 15px 25px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#visorFotos.abierto {
+    display: flex;
+}
+
+#fotoAmpliada {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 94vw;
+    max-height: 76vh;
+    object-fit: contain;
+    border-radius: 14px;
+    margin: auto;
+    box-shadow: 0 0 35px #d86bb533;
+}
+
+#textoFoto {
+    display: none;
+    color: #f6ddec;
+    font-family: Lora, serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 420px;
+    margin: 18px auto 5px;
+    padding: 0 8px;
+}
+
+#cerrarVisor {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 28px;
+    background: #d86bb5;
+}
+
+/* Movimiento reducido si el dispositivo lo solicita */
+@media (prefers-reduced-motion: reduce) {
+    .boton-sorpresa.animar-toque,
+    .destello-toque {
+        animation-duration: .01ms;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 34px; }
+    p { font-size: 18px; }
+    #fotoAmpliada { max-height: 72vh; }
+    #textoFoto { font-size: 16px; }
+}
 </style>
 </head>
 
@@ -60,225 +387,335 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
 <div id="brillos"></div>
 
 <div class="portada">
-<h1>¡Feliz cumpleaños!</h1>
+    <h1>¡Feliz cumpleaños!</h1>
 
-<div id="introduccion">
-<p style="color:#d0cbd2">Hay cosas que no entran en una caja.</p>
-<button onclick="sonidoBoton();mostrarCarta()">Abrí esto 🎁</button>
-</div>
+    <div id="introduccion">
+        <p style="color:#d0cbd2">Hay cosas que no entran en una caja.</p>
+        <button class="boton-sorpresa" onclick="sonidoBoton();mostrarCarta()">Abrí esto 🎁</button>
+    </div>
 
-<div id="carta" style="display:none;margin-top:40px;color:white">
-<h2>Es para vos</h2>
-<p style="color:#d0cbd2">Hay algo que quiero decirte...</p>
-<button onclick="sonidoBoton();mostrarCartaCompleta()">💌</button>
-</div>
+    <div id="carta" style="display:none;margin-top:40px;color:white">
+        <h2>Es para vos</h2>
+        <p style="color:#d0cbd2">Hay algo que quiero decirte...</p>
+        <button class="boton-sorpresa" onclick="sonidoBoton();mostrarCartaCompleta()">💌</button>
+    </div>
 
-<div id="cartaCompleta" style="display:none;margin-top:40px;color:white">
-<p>Hay cosas que siento que son más fáciles de vivir que de explicar...</p>
+    <div id="cartaCompleta" style="display:none;margin-top:40px;color:white">
+        <p>Hay cosas que siento que son más fáciles de vivir que de explicar...</p>
 
-<img class="foto-recuerdo" src="foto1.png" alt="Ale en Monte" data-texto="Ese día fuimos a Monte… Te veías hermosa todo el día. ❤️">
+        <img class="foto-recuerdo" src="foto1.png" alt="Ale en Monte" data-texto="Ese día fuimos a Monte… Te veías hermosa todo el día. ❤️">
 
-<p>Pero hoy quería regalarte algo distinto. Algo hecho pensando en vos y en todos esos momentos que compartimos.</p>
+        <p>Pero hoy quería regalarte algo distinto. Algo hecho pensando en vos y en todos esos momentos que compartimos.</p>
 
-<p>Me gusta pensar en todo lo que compartimos. las charlas, las risas, los mates, los viajes, las noches juntos, las pequeñas cosas que quizás parecen simples, pero que para mí significan muchísimo.</p>
+        <p>Me gusta pensar en todo lo que compartimos. las charlas, las risas, los mates, los viajes, las noches juntos, las pequeñas cosas que quizás parecen simples, pero que para mí significan muchísimo.</p>
 
-<img class="foto-recuerdo" src="foto2.jpg" alt="Un recuerdo juntos">
+        <img class="foto-recuerdo" src="foto2.jpg" alt="Un recuerdo juntos">
 
-<p>Y aunque no sé exactamente qué nos espera más adelante, de algo estoy seguro, amor: me hace feliz compartir el camino con vos.</p>
+        <p>Y aunque no sé exactamente qué nos espera más adelante, de algo estoy seguro, amor: me hace feliz compartir el camino con vos.</p>
 
-<p>Feliz cumpleaños, Ale. ❤️</p>
+        <p>Feliz cumpleaños, Ale. ❤️</p>
 
-<p>Espero que este nuevo año de tu vida te encuentre rodeada de cosas lindas, de proyectos, de momentos que te hagan feliz y de personas que te quieran de verdad.</p>
+        <p>Espero que este nuevo año de tu vida te encuentre rodeada de cosas lindas, de proyectos, de momentos que te hagan feliz y de personas que te quieran de verdad.</p>
 
-<img class="foto-recuerdo" src="foto3.jpg" alt="Otro recuerdo juntos">
+        <img class="foto-recuerdo" src="foto3.jpg" alt="Otro recuerdo juntos">
 
-<p>Y ojalá esta página, que me costó muchísimo hacer, pueda hacerte recordar, aunque sea por un ratito, lo especial que sos para mí.</p>
+        <p>Y ojalá esta página, que me costó muchísimo hacer, pueda hacerte recordar, aunque sea por un ratito, lo especial que sos para mí.</p>
 
-<div class="reproductor-voz">
-<div class="texto-audio">🎙️ Escuchá esto ❤️</div>
-<div class="audio-contenedor">
-<button id="botonAudio" onclick="reproducirAudio()">▶</button>
-<div class="onda" id="onda"></div>
-<div class="tiempo"><span id="tiempoActual">0:00</span><span id="duracionAudio">0:00</span></div>
-</div>
-<audio id="audioMensaje" src="72673.m4a" preload="metadata"></audio>
-</div>
-</div>
+        <div class="reproductor-voz">
+            <div class="texto-audio">🎙️ Escuchá esto ❤️</div>
+            <div class="audio-contenedor">
+                <button id="botonAudio" onclick="reproducirAudio()">▶</button>
+                <div class="onda" id="onda"></div>
+                <div class="tiempo">
+                    <span id="tiempoActual">0:00</span>
+                    <span id="duracionAudio">0:00</span>
+                </div>
+            </div>
+            <audio id="audioMensaje" src="72673.m4a" preload="metadata"></audio>
+        </div>
+    </div>
 </div>
 
 <!-- Visor de fotos -->
 <div id="visorFotos" role="dialog" aria-modal="true" aria-label="Foto ampliada" onclick="cerrarVisorFondo(event)">
-<button id="cerrarVisor" aria-label="Cerrar foto" onclick="cerrarVisor()">×</button>
-<img id="fotoAmpliada" src="" alt="Foto ampliada">
-<p id="textoFoto"></p>
+    <button id="cerrarVisor" aria-label="Cerrar foto" onclick="cerrarVisor()">×</button>
+    <img id="fotoAmpliada" src="" alt="Foto ampliada">
+    <p id="textoFoto"></p>
 </div>
 
 <script>
 /* Reproductor de audio */
-const audioMensaje=document.getElementById("audioMensaje");
-const botonAudio=document.getElementById("botonAudio");
-const onda=document.getElementById("onda");
-const tiempoActual=document.getElementById("tiempoActual");
-const duracionAudio=document.getElementById("duracionAudio");
+const audioMensaje = document.getElementById("audioMensaje");
+const botonAudio = document.getElementById("botonAudio");
+const onda = document.getElementById("onda");
+const tiempoActual = document.getElementById("tiempoActual");
+const duracionAudio = document.getElementById("duracionAudio");
 
-const alturas=[12,25,18,35,22,42,28,15,32,45,24,18,38,29,20,43,31,16,36,47,26,19,40,30,22,44,34,17,28,41,25,14,37,46,21,33,27,43,18,30,39,24,16,35,45,29,20,38];
+const alturas = [
+    12,25,18,35,22,42,28,15,32,45,24,18,
+    38,29,20,43,31,16,36,47,26,19,40,30,
+    22,44,34,17,28,41,25,14,37,46,21,33,
+    27,43,18,30,39,24,16,35,45,29,20,38
+];
 
-alturas.forEach(function(altura){
-    const barra=document.createElement("span");
-    barra.style.height=altura+"px";
+alturas.forEach(function(altura) {
+    const barra = document.createElement("span");
+    barra.style.height = altura + "px";
     onda.appendChild(barra);
 });
 
-const barras=document.querySelectorAll(".onda span");
+const barras = document.querySelectorAll(".onda span");
 
-function formatoTiempo(segundos){
-    if(!isFinite(segundos))return "0:00";
-    const minutos=Math.floor(segundos/60);
-    const restantes=Math.floor(segundos%60);
-    return minutos+":"+String(restantes).padStart(2,"0");
+function formatoTiempo(segundos) {
+    if (!isFinite(segundos)) return "0:00";
+    const minutos = Math.floor(segundos / 60);
+    const restantes = Math.floor(segundos % 60);
+    return minutos + ":" + String(restantes).padStart(2, "0");
 }
 
-audioMensaje.addEventListener("loadedmetadata",function(){
-    duracionAudio.textContent=formatoTiempo(audioMensaje.duration);
+audioMensaje.addEventListener("loadedmetadata", function() {
+    duracionAudio.textContent = formatoTiempo(audioMensaje.duration);
 });
 
-function reproducirAudio(){
-    if(audioMensaje.paused){
-        audioMensaje.play().then(function(){
-            botonAudio.textContent="Ⅱ";
-        }).catch(function(){
-            botonAudio.textContent="▶";
+function reproducirAudio() {
+    if (audioMensaje.paused) {
+        audioMensaje.play().then(function() {
+            botonAudio.textContent = "Ⅱ";
+        }).catch(function() {
+            botonAudio.textContent = "▶";
         });
-    }else{
+    } else {
         audioMensaje.pause();
-        botonAudio.textContent="▶";
+        botonAudio.textContent = "▶";
     }
 }
 
-audioMensaje.addEventListener("pause",function(){
-    botonAudio.textContent="▶";
+audioMensaje.addEventListener("pause", function() {
+    botonAudio.textContent = "▶";
 });
 
-audioMensaje.addEventListener("play",function(){
-    botonAudio.textContent="Ⅱ";
+audioMensaje.addEventListener("play", function() {
+    botonAudio.textContent = "Ⅱ";
 });
 
-audioMensaje.addEventListener("timeupdate",function(){
-    tiempoActual.textContent=formatoTiempo(audioMensaje.currentTime);
-    const progreso=audioMensaje.duration?audioMensaje.currentTime/audioMensaje.duration:0;
+audioMensaje.addEventListener("timeupdate", function() {
+    tiempoActual.textContent = formatoTiempo(audioMensaje.currentTime);
+    const progreso = audioMensaje.duration
+        ? audioMensaje.currentTime / audioMensaje.duration
+        : 0;
 
-    barras.forEach(function(barra,indice){
-        if(indice<progreso*barras.length)barra.classList.add("activa");
-        else barra.classList.remove("activa");
+    barras.forEach(function(barra, indice) {
+        if (indice < progreso * barras.length) {
+            barra.classList.add("activa");
+        } else {
+            barra.classList.remove("activa");
+        }
     });
 });
 
-audioMensaje.addEventListener("ended",function(){
-    botonAudio.textContent="▶";
-    tiempoActual.textContent="0:00";
-    barras.forEach(function(barra){barra.classList.remove("activa");});
+audioMensaje.addEventListener("ended", function() {
+    botonAudio.textContent = "▶";
+    tiempoActual.textContent = "0:00";
+    barras.forEach(function(barra) {
+        barra.classList.remove("activa");
+    });
 });
 
-/* Brillos */
-function crearBrillo(){
-    const brillo=document.createElement("div");
+/* Brillos ambientales */
+function crearBrillo() {
+    const brillo = document.createElement("div");
     brillo.classList.add("brillo");
-    brillo.style.left=Math.random()*100+"%";
-    brillo.style.top=Math.random()*100+"%";
+    brillo.style.left = Math.random() * 100 + "%";
+    brillo.style.top = Math.random() * 100 + "%";
     document.getElementById("brillos").appendChild(brillo);
-    setTimeout(function(){brillo.remove();},3000);
+    setTimeout(function() {
+        brillo.remove();
+    }, 3000);
 }
-setInterval(crearBrillo,200);
+
+setInterval(crearBrillo, 200);
 
 /* Transiciones de la carta */
-function mostrarCarta(){
+function mostrarCarta() {
     document.getElementById("introduccion").classList.add("oculto");
-    setTimeout(function(){
-        const carta=document.getElementById("carta");
-        carta.style.display="block";
-        setTimeout(function(){carta.classList.add("visible");},50);
-    },1500);
+
+    setTimeout(function() {
+        const carta = document.getElementById("carta");
+        carta.style.display = "block";
+
+        setTimeout(function() {
+            carta.classList.add("visible");
+        }, 50);
+    }, 1500);
 }
 
-function mostrarCartaCompleta(){
-    document.getElementById("carta").style.display="none";
-    const cartaCompleta=document.getElementById("cartaCompleta");
-    cartaCompleta.style.display="block";
-    setTimeout(function(){cartaCompleta.classList.add("visible");},50);
+function mostrarCartaCompleta() {
+    document.getElementById("carta").style.display = "none";
+
+    const cartaCompleta = document.getElementById("cartaCompleta");
+    cartaCompleta.style.display = "block";
+
+    setTimeout(function() {
+        cartaCompleta.classList.add("visible");
+    }, 50);
 }
 
-/* Sonido de los botones */
+/* Sonido breve parecido a un click */
 let audioBoton;
 
-function sonidoBoton(){
-    try{
-        if(!audioBoton)audioBoton=new(window.AudioContext||window.webkitAudioContext)();
-        if(audioBoton.state==="suspended")audioBoton.resume();
-        const oscilador=audioBoton.createOscillator();
-        const volumen=audioBoton.createGain();
-        oscilador.connect(volumen);
+function sonidoBoton() {
+    try {
+        if (!audioBoton) {
+            audioBoton = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        if (audioBoton.state === "suspended") {
+            audioBoton.resume();
+        }
+
+        const duracion = 0.035;
+        const cantidad = Math.floor(audioBoton.sampleRate * duracion);
+        const buffer = audioBoton.createBuffer(1, cantidad, audioBoton.sampleRate);
+        const datos = buffer.getChannelData(0);
+
+        for (let i = 0; i < cantidad; i++) {
+            datos[i] = (Math.random() * 2 - 1) * (1 - i / cantidad);
+        }
+
+        const fuente = audioBoton.createBufferSource();
+        const filtro = audioBoton.createBiquadFilter();
+        const volumen = audioBoton.createGain();
+
+        fuente.buffer = buffer;
+        filtro.type = "highpass";
+        filtro.frequency.value = 1000;
+
+        volumen.gain.setValueAtTime(0.16, audioBoton.currentTime);
+        volumen.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioBoton.currentTime + duracion
+        );
+
+        fuente.connect(filtro);
+        filtro.connect(volumen);
         volumen.connect(audioBoton.destination);
-        oscilador.frequency.value=700;
-        volumen.gain.setValueAtTime(.08,audioBoton.currentTime);
-        volumen.gain.exponentialRampToValueAtTime(.001,audioBoton.currentTime+.15);
-        oscilador.start();
-        oscilador.stop(audioBoton.currentTime+.15);
-    }catch(error){}
+
+        fuente.start();
+        fuente.stop(audioBoton.currentTime + duracion);
+    } catch (error) {
+        /* La página sigue funcionando si el dispositivo no permite el sonido */
+    }
 }
+
+/* Animación y unos pocos destellos al tocar los botones principales */
+document.querySelectorAll(".boton-sorpresa").forEach(function(boton) {
+    boton.addEventListener("click", function() {
+        boton.classList.remove("animar-toque");
+        void boton.offsetWidth;
+        boton.classList.add("animar-toque");
+
+        const rect = boton.getBoundingClientRect();
+        const simbolos = ["✦", "✧", "·", "✦", "✧"];
+
+        simbolos.forEach(function(simbolo, indice) {
+            const destello = document.createElement("span");
+            destello.className = "destello-toque";
+            destello.textContent = simbolo;
+
+            destello.style.left = (
+                rect.left + rect.width / 2 + (Math.random() - 0.5) * rect.width
+            ) + "px";
+
+            destello.style.top = (
+                rect.top + rect.height / 2 + (Math.random() - 0.5) * 10
+            ) + "px";
+
+            destello.style.setProperty("--mov-x", (Math.random() * 60 - 30) + "px");
+            destello.style.setProperty("--mov-y", (-18 - Math.random() * 35) + "px");
+            destello.style.animationDelay = (indice * 25) + "ms";
+
+            document.body.appendChild(destello);
+
+            setTimeout(function() {
+                destello.remove();
+            }, 850);
+        });
+
+        setTimeout(function() {
+            boton.classList.remove("animar-toque");
+        }, 400);
+    });
+});
 
 /* Cometas */
-function crearCometa(){
-    const cometa=document.createElement("div");
-    cometa.className="cometa";
-    cometa.style.left=(35+Math.random()*65)+"%";
-    cometa.style.top=Math.random()*35+"%";
+function crearCometa() {
+    const cometa = document.createElement("div");
+    cometa.className = "cometa";
+    cometa.style.left = (35 + Math.random() * 65) + "%";
+    cometa.style.top = Math.random() * 35 + "%";
     document.body.appendChild(cometa);
-    requestAnimationFrame(function(){cometa.classList.add("pasar");});
-    setTimeout(function(){cometa.remove();},2000);
+
+    requestAnimationFrame(function() {
+        cometa.classList.add("pasar");
+    });
+
+    setTimeout(function() {
+        cometa.remove();
+    }, 2000);
 }
 
-function programarCometa(){
-    const espera=3500+Math.random()*4500;
-    setTimeout(function(){crearCometa();programarCometa();},espera);
+function programarCometa() {
+    const espera = 3500 + Math.random() * 4500;
+
+    setTimeout(function() {
+        crearCometa();
+        programarCometa();
+    }, espera);
 }
+
 programarCometa();
 
 /* Ampliación de las fotos */
-const visorFotos=document.getElementById("visorFotos");
-const fotoAmpliada=document.getElementById("fotoAmpliada");
-const textoFoto=document.getElementById("textoFoto");
+const visorFotos = document.getElementById("visorFotos");
+const fotoAmpliada = document.getElementById("fotoAmpliada");
+const textoFoto = document.getElementById("textoFoto");
 
-document.querySelectorAll(".foto-recuerdo").forEach(function(foto){
-    foto.addEventListener("click",function(){
-        fotoAmpliada.src=foto.src;
-        fotoAmpliada.alt=foto.alt;
-        const texto=foto.getAttribute("data-texto");
+document.querySelectorAll(".foto-recuerdo").forEach(function(foto) {
+    foto.addEventListener("click", function() {
+        fotoAmpliada.src = foto.src;
+        fotoAmpliada.alt = foto.alt;
 
-        if(texto){
-            textoFoto.textContent=texto;
-            textoFoto.style.display="block";
-        }else{
-            textoFoto.textContent="";
-            textoFoto.style.display="none";
+        const texto = foto.getAttribute("data-texto");
+
+        if (texto) {
+            textoFoto.textContent = texto;
+            textoFoto.style.display = "block";
+        } else {
+            textoFoto.textContent = "";
+            textoFoto.style.display = "none";
         }
 
         visorFotos.classList.add("abierto");
-        document.body.style.overflow="hidden";
+        document.body.style.overflow = "hidden";
     });
 });
 
-function cerrarVisor(){
+function cerrarVisor() {
     visorFotos.classList.remove("abierto");
-    document.body.style.overflow="";
-    fotoAmpliada.src="";
+    document.body.style.overflow = "";
+    fotoAmpliada.src = "";
 }
 
-function cerrarVisorFondo(event){
-    if(event.target===visorFotos)cerrarVisor();
+function cerrarVisorFondo(event) {
+    if (event.target === visorFotos) {
+        cerrarVisor();
+    }
 }
 
-document.addEventListener("keydown",function(event){
-    if(event.key==="Escape")cerrarVisor();
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        cerrarVisor();
+    }
 });
 </script>
 
