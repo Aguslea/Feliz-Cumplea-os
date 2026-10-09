@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,9 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,400;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -86,14 +83,14 @@ button:focus-visible {
     outline-offset: 4px;
 }
 
-/* Animación sutil de los dos botones principales */
+/* Animación de los botones principales */
 .boton-sorpresa {
     position: relative;
     transform-origin: center;
 }
 
 .boton-sorpresa.animar-toque {
-    animation: toqueMagico .36s ease-out;
+    animation: toqueMagico .5s ease-out;
 }
 
 @keyframes toqueMagico {
@@ -103,16 +100,16 @@ button:focus-visible {
     100% { transform: scale(1) rotate(0); }
 }
 
-/* Pequeños destellos al tocar */
+/* Destellos al tocar */
 .destello-toque {
     position: fixed;
     z-index: 10000;
     pointer-events: none;
     color: #ffe6a3;
     text-shadow: 0 0 7px #ffd977;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1;
-    animation: destelloSubir .72s ease-out forwards;
+    animation: destelloSubir .85s ease-out forwards;
 }
 
 @keyframes destelloSubir {
@@ -120,13 +117,11 @@ button:focus-visible {
         opacity: 0;
         transform: translate(0, 0) scale(.4) rotate(0);
     }
-    25% {
-        opacity: .95;
-    }
+    25% { opacity: .95; }
     100% {
         opacity: 0;
         transform: translate(var(--mov-x), var(--mov-y))
-                   scale(1.15) rotate(40deg);
+                   scale(1.25) rotate(40deg);
     }
 }
 
@@ -366,7 +361,6 @@ img.foto-recuerdo:hover {
     background: #d86bb5;
 }
 
-/* Movimiento reducido si el dispositivo lo solicita */
 @media (prefers-reduced-motion: reduce) {
     .boton-sorpresa.animar-toque,
     .destello-toque {
@@ -407,7 +401,7 @@ img.foto-recuerdo:hover {
 
         <p>Pero hoy quería regalarte algo distinto. Algo hecho pensando en vos y en todos esos momentos que compartimos.</p>
 
-        <p>Me gusta pensar en todo lo que compartimos. las charlas, las risas, los mates, los viajes, las noches juntos, las pequeñas cosas que quizás parecen simples, pero que para mí significan muchísimo.</p>
+        <p>Me gusta pensar en todo lo que compartimos. Las charlas, las risas, los mates, los viajes, las noches juntos, las pequeñas cosas que quizás parecen simples, pero que para mí significan muchísimo.</p>
 
         <img class="foto-recuerdo" src="foto2.jpg" alt="Un recuerdo juntos">
 
@@ -436,7 +430,6 @@ img.foto-recuerdo:hover {
     </div>
 </div>
 
-<!-- Visor de fotos -->
 <div id="visorFotos" role="dialog" aria-modal="true" aria-label="Foto ampliada" onclick="cerrarVisorFondo(event)">
     <button id="cerrarVisor" aria-label="Cerrar foto" onclick="cerrarVisor()">×</button>
     <img id="fotoAmpliada" src="" alt="Foto ampliada">
@@ -528,6 +521,7 @@ function crearBrillo() {
     brillo.style.left = Math.random() * 100 + "%";
     brillo.style.top = Math.random() * 100 + "%";
     document.getElementById("brillos").appendChild(brillo);
+
     setTimeout(function() {
         brillo.remove();
     }, 3000);
@@ -549,15 +543,31 @@ function mostrarCarta() {
     }, 1500);
 }
 
-function mostrarCartaCompleta() {
-    document.getElementById("carta").style.display = "none";
+/* CORREGIDO: el botón se mantiene visible mientras se anima */
+let transicionCartaEnCurso = false;
 
+function mostrarCartaCompleta() {
+    if (transicionCartaEnCurso) return;
+    transicionCartaEnCurso = true;
+
+    const carta = document.getElementById("carta");
     const cartaCompleta = document.getElementById("cartaCompleta");
-    cartaCompleta.style.display = "block";
+    const boton = carta.querySelector(".boton-sorpresa");
+
+    if (boton) {
+        boton.disabled = true;
+    }
 
     setTimeout(function() {
-        cartaCompleta.classList.add("visible");
-    }, 50);
+        carta.style.display = "none";
+        carta.classList.remove("visible");
+
+        cartaCompleta.style.display = "block";
+
+        setTimeout(function() {
+            cartaCompleta.classList.add("visible");
+        }, 50);
+    }, 550);
 }
 
 /* Sonido breve parecido a un click */
@@ -607,7 +617,7 @@ function sonidoBoton() {
     }
 }
 
-/* Animación y unos pocos destellos al tocar los botones principales */
+/* Animación y destellos al tocar los botones principales */
 document.querySelectorAll(".boton-sorpresa").forEach(function(boton) {
     boton.addEventListener("click", function() {
         boton.classList.remove("animar-toque");
@@ -615,7 +625,7 @@ document.querySelectorAll(".boton-sorpresa").forEach(function(boton) {
         boton.classList.add("animar-toque");
 
         const rect = boton.getBoundingClientRect();
-        const simbolos = ["✦", "✧", "·", "✦", "✧"];
+        const simbolos = ["✦", "✧", "·", "✦", "✧", "✧", "✦"];
 
         simbolos.forEach(function(simbolo, indice) {
             const destello = document.createElement("span");
@@ -623,27 +633,36 @@ document.querySelectorAll(".boton-sorpresa").forEach(function(boton) {
             destello.textContent = simbolo;
 
             destello.style.left = (
-                rect.left + rect.width / 2 + (Math.random() - 0.5) * rect.width
+                rect.left + rect.width / 2 +
+                (Math.random() - 0.5) * rect.width * 1.4
             ) + "px";
 
             destello.style.top = (
-                rect.top + rect.height / 2 + (Math.random() - 0.5) * 10
+                rect.top + rect.height / 2 +
+                (Math.random() - 0.5) * 12
             ) + "px";
 
-            destello.style.setProperty("--mov-x", (Math.random() * 60 - 30) + "px");
-            destello.style.setProperty("--mov-y", (-18 - Math.random() * 35) + "px");
-            destello.style.animationDelay = (indice * 25) + "ms";
+            destello.style.setProperty(
+                "--mov-x",
+                (Math.random() * 80 - 40) + "px"
+            );
 
+            destello.style.setProperty(
+                "--mov-y",
+                (-20 - Math.random() * 45) + "px"
+            );
+
+            destello.style.animationDelay = (indice * 25) + "ms";
             document.body.appendChild(destello);
 
             setTimeout(function() {
                 destello.remove();
-            }, 850);
+            }, 1000);
         });
 
         setTimeout(function() {
             boton.classList.remove("animar-toque");
-        }, 400);
+        }, 550);
     });
 });
 
@@ -718,6 +737,5 @@ document.addEventListener("keydown", function(event) {
     }
 });
 </script>
-
 </body>
 </html>
