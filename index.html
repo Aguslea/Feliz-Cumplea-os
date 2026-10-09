@@ -163,6 +163,54 @@ img {
     font-style: italic;
     font-weight: 400;
 }
+    /* Cometas de fondo */
+.cometa {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff9d6;
+    box-shadow: 0 0 8px 3px #ffe9a3;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+}
+
+.cometa::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    width: 100px;
+    height: 2px;
+    transform: translateY(-50%);
+    background: linear-gradient(
+        to left,
+        rgba(255, 245, 200, 0.9),
+        rgba(255, 220, 150, 0)
+    );
+}
+
+.cometa.pasar {
+    animation: cruzarCometa 1.8s ease-out forwards;
+}
+
+@keyframes cruzarCometa {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(-25deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-260px, 130px) rotate(-25deg);
+    }
+}
 </style>
 
 </head>
@@ -503,6 +551,36 @@ function sonidoBoton() {
     oscilador.start();
     oscilador.stop(audioBoton.currentTime + 0.15);
 }
+</script>
+    <script>
+function crearCometa() {
+    const cometa = document.createElement("div");
+    cometa.className = "cometa";
+
+    cometa.style.left = (20 + Math.random() * 100) + "%";
+    cometa.style.top = (Math.random() * 55) + "%";
+
+    document.body.appendChild(cometa);
+
+    requestAnimationFrame(() => {
+        cometa.classList.add("pasar");
+    });
+
+    setTimeout(() => {
+        cometa.remove();
+    }, 2000);
+}
+
+function programarCometa() {
+    const espera = 8000 + Math.random() * 12000;
+
+    setTimeout(() => {
+        crearCometa();
+        programarCometa();
+    }, espera);
+}
+
+programarCometa();
 </script>
 </body>
 </html>
