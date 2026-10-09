@@ -200,15 +200,18 @@ img {
         opacity: 0;
         transform: translate(0, 0) rotate(-25deg);
     }
-    10% {
+
+    15% {
         opacity: 1;
     }
-    80% {
-        opacity: 1;
+
+    70% {
+        opacity: 0.9;
     }
+
     100% {
         opacity: 0;
-        transform: translate(-260px, 130px) rotate(-25deg);
+        transform: translate(-260px, 300px) rotate(-25deg);
     }
 }
 </style>
@@ -557,8 +560,8 @@ function crearCometa() {
     const cometa = document.createElement("div");
     cometa.className = "cometa";
 
-    cometa.style.left = (20 + Math.random() * 100) + "%";
-    cometa.style.top = (Math.random() * 55) + "%";
+    cometa.style.left = (35 + Math.random() * 65) + "%";
+cometa.style.top = (Math.random() * 35) + "%";
 
     document.body.appendChild(cometa);
 
