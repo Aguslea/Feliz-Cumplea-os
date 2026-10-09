@@ -173,6 +173,35 @@ img.foto-recuerdo:hover {
     transform: translateY(0);
 }
 
+/* Texto introductorio de la carta */
+.intro-carta {
+    color: #f0d9eb;
+    font-family: Lora, serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.85;
+    margin: 25px auto 30px;
+}
+
+.titulo-intro {
+    color: #f5c5e7;
+    font-family: Lora, serif;
+    font-size: 25px;
+    line-height: 1.5;
+    font-style: italic;
+    margin: 0 auto 20px;
+}
+
+/* Separadores decorativos */
+.separador-carta {
+    color: #dca0ce;
+    font-size: 13px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    margin: 35px auto;
+    overflow-wrap: anywhere;
+}
+
 /* Brillos ambientales */
 #brillos {
     position: fixed;
@@ -205,47 +234,11 @@ img.foto-recuerdo:hover {
     100% { background-position: 0 100%; }
 }
 
-/* Cometas */
-.cometa {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #fff9d6;
-    box-shadow: 0 0 8px 3px #ffe9a3;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0;
-}
-
-.cometa:after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 2px;
-    width: 120px;
-    height: 2px;
-    transform: translateY(-50%);
-    background: linear-gradient(to right, rgba(245,253,255,.95), rgba(190,235,255,.65) 35%, transparent);
-    filter: blur(.5px);
-}
-
-.cometa.pasar {
-    animation: cruzarCometa 1.8s ease-out forwards;
-}
-
-@keyframes cruzarCometa {
-    0%   { opacity: 0; transform: translate(0,0) rotate(-25deg); }
-    15%  { opacity: 1; }
-    70%  { opacity: .9; }
-    100% { opacity: 0; transform: translate(-260px,300px) rotate(-25deg); }
-}
-
-/* Reproductor de voz */
+/* Reproductor de audio */
 .reproductor-voz {
     width: 90%;
     max-width: 450px;
-    margin: 55px auto 20px;
+    margin: 35px auto 20px;
     text-align: center;
 }
 
@@ -255,11 +248,36 @@ img.foto-recuerdo:hover {
     margin-bottom: 18px;
 }
 
+/* Cumpleaños integrado en el borde del reproductor */
+.audio-marco {
+    position: relative;
+    margin-top: 28px;
+    padding: 18px 15px 14px;
+    border: 1px solid #d86bb5a6;
+    border-radius: 24px;
+    background: #ffffff08;
+    box-shadow: 0 0 22px #d86bb51a;
+}
+
+.audio-marco-titulo {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 24px);
+    padding: 3px 12px;
+    color: #f5c5e7;
+    background: #1c0c20;
+    font-family: Lora, serif;
+    font-size: 16px;
+    font-style: italic;
+    white-space: normal;
+}
+
 .audio-contenedor {
-    padding: 18px 20px 14px;
-    border-radius: 28px;
-    background: #ffffff0f;
-    border: 1px solid #ffffff1a;
+    padding: 10px 5px 0;
+    border-radius: 18px;
 }
 
 #botonAudio {
@@ -305,6 +323,42 @@ img.foto-recuerdo:hover {
     content: "";
     display: block;
     clear: both;
+}
+
+/* Cometas */
+.cometa {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff9d6;
+    box-shadow: 0 0 8px 3px #ffe9a3;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+}
+
+.cometa:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    width: 120px;
+    height: 2px;
+    transform: translateY(-50%);
+    background: linear-gradient(to right, rgba(245,253,255,.95), rgba(190,235,255,.65) 35%, transparent);
+    filter: blur(.5px);
+}
+
+.cometa.pasar {
+    animation: cruzarCometa 1.8s ease-out forwards;
+}
+
+@keyframes cruzarCometa {
+    0%   { opacity: 0; transform: translate(0,0) rotate(-25deg); }
+    15%  { opacity: 1; }
+    70%  { opacity: .9; }
+    100% { opacity: 0; transform: translate(-260px,300px) rotate(-25deg); }
 }
 
 /* Fotos ampliadas */
@@ -371,6 +425,24 @@ img.foto-recuerdo:hover {
 @media (max-width: 480px) {
     h1 { font-size: 34px; }
     p { font-size: 18px; }
+
+    .intro-carta {
+        font-size: 17px;
+    }
+
+    .titulo-intro {
+        font-size: 22px;
+    }
+
+    .separador-carta {
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+
+    .audio-marco-titulo {
+        font-size: 14px;
+    }
+
     #fotoAmpliada { max-height: 72vh; }
     #textoFoto { font-size: 16px; }
 }
@@ -395,6 +467,19 @@ img.foto-recuerdo:hover {
     </div>
 
     <div id="cartaCompleta" style="display:none;margin-top:40px;color:white">
+
+        <!-- Introducción nueva -->
+        <h2 class="titulo-intro">Qué lindo es coincidir con vos en esta vida, amor.</h2>
+
+        <p class="intro-carta">
+            De todas las personas que podría haber conocido, qué lindo que nuestros caminos se hayan cruzado. Me gusta tenerte en mi vida, compartir mis días con vos y descubrir que hasta los momentos más simples pueden convertirse en recuerdos que guardo con mucho cariño.
+        </p>
+
+        <div class="separador-carta">
+            ✧･ﾟ: *✧･ﾟ:* ═════════ *:･ﾟ✧*:･ﾟ✧
+        </div>
+
+        <!-- Carta original -->
         <p>Hay cosas que siento que son más fáciles de vivir que de explicar...</p>
 
         <img class="foto-recuerdo" src="foto1.png" alt="Ale en Monte" data-texto="Ese día fuimos a Monte… Te veías hermosa todo el día. ❤️">
@@ -407,24 +492,36 @@ img.foto-recuerdo:hover {
 
         <p>Y aunque no sé exactamente qué nos espera más adelante, de algo estoy seguro, amor: me hace feliz compartir el camino con vos.</p>
 
-        <p>Feliz cumpleaños, Ale. ❤️</p>
-
         <p>Espero que este nuevo año de tu vida te encuentre rodeada de cosas lindas, de proyectos, de momentos que te hagan feliz y de personas que te quieran de verdad.</p>
 
         <img class="foto-recuerdo" src="foto3.jpg" alt="Otro recuerdo juntos">
 
         <p>Y ojalá esta página, que me costó muchísimo hacer, pueda hacerte recordar, aunque sea por un ratito, lo especial que sos para mí.</p>
 
+        <!-- Separador antes del audio -->
+        <div class="separador-carta">
+            ✧･ﾟ: *✧･ﾟ:* ═════════ *:･ﾟ✧*:･ﾟ✧
+        </div>
+
+        <!-- Audio con el saludo integrado en el borde -->
         <div class="reproductor-voz">
             <div class="texto-audio">🎙️ Escuchá esto ❤️</div>
-            <div class="audio-contenedor">
-                <button id="botonAudio" onclick="reproducirAudio()">▶</button>
-                <div class="onda" id="onda"></div>
-                <div class="tiempo">
-                    <span id="tiempoActual">0:00</span>
-                    <span id="duracionAudio">0:00</span>
+
+            <div class="audio-marco">
+                <div class="audio-marco-titulo">Feliz cumpleaños, Ale ❤️</div>
+
+                <div class="audio-contenedor">
+                    <button id="botonAudio" onclick="reproducirAudio()">▶</button>
+
+                    <div class="onda" id="onda"></div>
+
+                    <div class="tiempo">
+                        <span id="tiempoActual">0:00</span>
+                        <span id="duracionAudio">0:00</span>
+                    </div>
                 </div>
             </div>
+
             <audio id="audioMensaje" src="72673.m4a" preload="metadata"></audio>
         </div>
     </div>
@@ -493,6 +590,7 @@ audioMensaje.addEventListener("play", function() {
 
 audioMensaje.addEventListener("timeupdate", function() {
     tiempoActual.textContent = formatoTiempo(audioMensaje.currentTime);
+
     const progreso = audioMensaje.duration
         ? audioMensaje.currentTime / audioMensaje.duration
         : 0;
@@ -509,6 +607,7 @@ audioMensaje.addEventListener("timeupdate", function() {
 audioMensaje.addEventListener("ended", function() {
     botonAudio.textContent = "▶";
     tiempoActual.textContent = "0:00";
+
     barras.forEach(function(barra) {
         barra.classList.remove("activa");
     });
@@ -543,7 +642,7 @@ function mostrarCarta() {
     }, 1500);
 }
 
-/* CORREGIDO: el botón se mantiene visible mientras se anima */
+/* El botón se mantiene visible mientras se anima */
 let transicionCartaEnCurso = false;
 
 function mostrarCartaCompleta() {
@@ -622,120 +721,4 @@ document.querySelectorAll(".boton-sorpresa").forEach(function(boton) {
     boton.addEventListener("click", function() {
         boton.classList.remove("animar-toque");
         void boton.offsetWidth;
-        boton.classList.add("animar-toque");
-
-        const rect = boton.getBoundingClientRect();
-        const simbolos = ["✦", "✧", "·", "✦", "✧", "✧", "✦"];
-
-        simbolos.forEach(function(simbolo, indice) {
-            const destello = document.createElement("span");
-            destello.className = "destello-toque";
-            destello.textContent = simbolo;
-
-            destello.style.left = (
-                rect.left + rect.width / 2 +
-                (Math.random() - 0.5) * rect.width * 1.4
-            ) + "px";
-
-            destello.style.top = (
-                rect.top + rect.height / 2 +
-                (Math.random() - 0.5) * 12
-            ) + "px";
-
-            destello.style.setProperty(
-                "--mov-x",
-                (Math.random() * 80 - 40) + "px"
-            );
-
-            destello.style.setProperty(
-                "--mov-y",
-                (-20 - Math.random() * 45) + "px"
-            );
-
-            destello.style.animationDelay = (indice * 25) + "ms";
-            document.body.appendChild(destello);
-
-            setTimeout(function() {
-                destello.remove();
-            }, 1000);
-        });
-
-        setTimeout(function() {
-            boton.classList.remove("animar-toque");
-        }, 550);
-    });
-});
-
-/* Cometas */
-function crearCometa() {
-    const cometa = document.createElement("div");
-    cometa.className = "cometa";
-    cometa.style.left = (35 + Math.random() * 65) + "%";
-    cometa.style.top = Math.random() * 35 + "%";
-    document.body.appendChild(cometa);
-
-    requestAnimationFrame(function() {
-        cometa.classList.add("pasar");
-    });
-
-    setTimeout(function() {
-        cometa.remove();
-    }, 2000);
-}
-
-function programarCometa() {
-    const espera = 3500 + Math.random() * 4500;
-
-    setTimeout(function() {
-        crearCometa();
-        programarCometa();
-    }, espera);
-}
-
-programarCometa();
-
-/* Ampliación de las fotos */
-const visorFotos = document.getElementById("visorFotos");
-const fotoAmpliada = document.getElementById("fotoAmpliada");
-const textoFoto = document.getElementById("textoFoto");
-
-document.querySelectorAll(".foto-recuerdo").forEach(function(foto) {
-    foto.addEventListener("click", function() {
-        fotoAmpliada.src = foto.src;
-        fotoAmpliada.alt = foto.alt;
-
-        const texto = foto.getAttribute("data-texto");
-
-        if (texto) {
-            textoFoto.textContent = texto;
-            textoFoto.style.display = "block";
-        } else {
-            textoFoto.textContent = "";
-            textoFoto.style.display = "none";
-        }
-
-        visorFotos.classList.add("abierto");
-        document.body.style.overflow = "hidden";
-    });
-});
-
-function cerrarVisor() {
-    visorFotos.classList.remove("abierto");
-    document.body.style.overflow = "";
-    fotoAmpliada.src = "";
-}
-
-function cerrarVisorFondo(event) {
-    if (event.target === visorFotos) {
-        cerrarVisor();
-    }
-}
-
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        cerrarVisor();
-    }
-});
-</script>
-</body>
-</html>
+        boton.classList.add("animar-to
