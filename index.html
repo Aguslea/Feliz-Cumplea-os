@@ -49,7 +49,7 @@ button {
     0 0 25px rgba(216, 107, 181, 0.4),
     0 6px 20px #0005;
 
-  animation: brilloBoton 3s ease-in-out infinite;
+  animation: brilloBoton 4s ease-in-out infinite;
 
   transition:
     transform 0.25s ease,
@@ -74,7 +74,7 @@ button::before {
   );
 
   transform: rotate(25deg);
-  animation: destelloBoton 3s ease-in-out infinite;
+  animation: destelloBoton 4.5s ease-in-out infinite;
   pointer-events: none;
   z-index: -1;
 }
@@ -495,8 +495,8 @@ function brilloBoton(boton) {
                     "translate(calc(-50% + " + x + "px), calc(-50% + " + y + "px)) scale(0) rotate(220deg)",
                 opacity: 0
             }
-        ], {
-            duration: 700 + Math.random() * 500,
+                ], {
+            duration: 1100 + Math.random() * 600,
             easing: "ease-out"
         });
 
@@ -518,10 +518,10 @@ function sonidoBoton(){
         oscilador.connect(volumen);
         volumen.connect(audioBoton.destination);
         oscilador.frequency.value=700;
-        volumen.gain.setValueAtTime(.08,audioBoton.currentTime);
-        volumen.gain.exponentialRampToValueAtTime(.001,audioBoton.currentTime+.15);
-        oscilador.start();
-        oscilador.stop(audioBoton.currentTime+.15);
+        volumen.gain.setValueAtTime(.16,audioBoton.currentTime);
+volumen.gain.exponentialRampToValueAtTime(.001,audioBoton.currentTime+.22);
+oscilador.start();
+oscilador.stop(audioBoton.currentTime+.22);
     }catch(error){}
 }
 
