@@ -284,6 +284,47 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
   transform: scale(1.1);
   box-shadow: none;
 }  
+/* Destello tenue que recorre el marco */
+.recuerdo-encuadrado {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.recuerdo-encuadrado::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 310deg,
+    rgba(255, 250, 230, 0.03) 325deg,
+    rgba(255, 250, 230, 0.12) 338deg,
+    rgba(255, 253, 240, 0.28) 348deg,
+    rgba(255, 255, 250, 0.48) 355deg,
+    transparent 360deg
+  );
+
+  animation: recorrerMarco 7s linear infinite;
+  pointer-events: none;
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@keyframes recorrerMarco {
+  to {
+    transform: rotate(360deg);
+  }
+}
+  
 </style>
 </head>
 
