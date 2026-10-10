@@ -192,19 +192,43 @@ setInterval(crearBrillo,200);
 
 /* Transiciones de la carta */
 function mostrarCarta(){
-    document.getElementById("introduccion").classList.add("oculto");
+    const introduccion = document.getElementById("introduccion");
+    const carta = document.getElementById("carta");
+
+    introduccion.classList.add("oculto");
+
     setTimeout(function(){
-        const carta=document.getElementById("carta");
-        carta.style.display="block";
-        setTimeout(function(){carta.classList.add("visible");},50);
-    },1500);
+        introduccion.style.display = "none";
+        carta.style.display = "block";
+
+        carta.classList.remove("visible");
+
+        requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+                carta.classList.add("visible");
+            });
+        });
+    }, 1500);
 }
 
 function mostrarCartaCompleta(){
-    document.getElementById("carta").style.display="none";
-    const cartaCompleta=document.getElementById("cartaCompleta");
-    cartaCompleta.style.display="block";
-    setTimeout(function(){cartaCompleta.classList.add("visible");},50);
+    const carta = document.getElementById("carta");
+    const cartaCompleta = document.getElementById("cartaCompleta");
+
+    carta.classList.remove("visible");
+
+    setTimeout(function(){
+        carta.style.display = "none";
+        cartaCompleta.style.display = "block";
+
+        cartaCompleta.classList.remove("visible");
+
+        requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+                cartaCompleta.classList.add("visible");
+            });
+        });
+    }, 300);
 }
 
 /* Sonido de los botones */
