@@ -699,10 +699,11 @@ nueva.alt = imagen.alt;
 nueva.className = imagen.className;
 
 nueva.style.cssText =
-  "position:absolute;top:0;left:0;width:100%;height:100%;" +
-  "object-fit:cover;border-radius:inherit;" +
-  "transform:translateX(" + (direccion > 0 ? ancho : -ancho) + "px);" +
-  "transition:none;pointer-events:none;";
+"position:absolute;top:0;left:0;width:100%;height:100%;" +
+"object-fit:cover;border-radius:16px;" +
+"clip-path:inset(0 round 16px);" +
+"transform:translateX(" + (direccion > 0 ? ancho : -ancho) + "px);" +
+"transition:none;pointer-events:none;";
 
 carrusel.style.position = "relative";
 carrusel.style.overflow = "hidden";
@@ -712,8 +713,8 @@ carrusel.insertBefore(nueva, carrusel.querySelector(".puntos-carrusel"));
 
 nueva.offsetWidth;
 
-imagen.style.transition = "transform 300ms ease";
-nueva.style.transition = "transform 300ms ease";
+imagen.style.transition = "transform 500ms ease-in-out";
+nueva.style.transition = "transform 500ms ease-in-out";
 
 requestAnimationFrame(function() {
   imagen.style.transform =
@@ -729,7 +730,7 @@ setTimeout(function() {
   nueva.remove();
   actualizarPuntos();
   bloqueado = false;
-}, 330);
+}, 530);
 
 }
 
