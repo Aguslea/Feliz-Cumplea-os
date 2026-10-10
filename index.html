@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -236,6 +235,55 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
   }
 }
 
+.carrusel-fotos {
+  width: 100%;
+  overflow: hidden;
+}
+
+.puntos-carrusel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  padding-top: 14px;
+}
+
+.punto {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(232, 207, 227, 0.35);
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.punto.activo {
+  background: #e8cfe3;
+  transform: scale(1.25);
+}
+
+  
+/* Ajustes para que los puntitos no hereden el estilo de los botones */
+.punto {
+  flex: 0 0 8px;
+  min-width: 8px;
+  min-height: 8px;
+  font-size: 0;
+  color: transparent;
+  box-shadow: none;
+  animation: none;
+}
+
+.punto::before {
+  display: none;
+}
+
+.punto:active {
+  transform: scale(1.1);
+  box-shadow: none;
+}  
 </style>
 </head>
 
@@ -293,15 +341,27 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
 
 <p>Me gusta pensar en todo lo que compartimos. las charlas, las risas, los mates, los viajes, las noches juntos, las pequeñas cosas que quizás parecen simples, pero que para mí significan muchísimo.</p>
 
+
 <div class="recuerdo-encuadrado">
 
-  <img
-    class="foto-recuerdo"
-    src="foto2.jpg"
-    alt="Un recuerdo juntos"
-  >
+  <div class="carrusel-fotos" data-fotos='["foto2.jpg","foto22.jpg","foto222.jpg"]'>
+
+    <img
+      class="foto-recuerdo"
+      src="foto2.jpg"
+      alt="Un recuerdo juntos"
+    >
+
+    <div class="puntos-carrusel">
+      <button class="punto activo" aria-label="Foto 1"></button>
+      <button class="punto" aria-label="Foto 2"></button>
+      <button class="punto" aria-label="Foto 3"></button>
+    </div>
+
+  </div>
 
 </div>
+
 
 <p>Y aunque no sé exactamente qué nos espera más adelante, de algo estoy seguro, amor: me hace feliz compartir el camino con vos.</p>
 
@@ -311,11 +371,21 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
 
 <div class="recuerdo-encuadrado">
 
-  <img
-    class="foto-recuerdo"
-    src="foto3.jpg"
-    alt="Otro recuerdo juntos"
-  >
+  <div class="carrusel-fotos" data-fotos='["foto3.jpg","foto33.jpg","foto333.jpg"]'>
+
+    <img
+      class="foto-recuerdo"
+      src="foto3.jpg"
+      alt="Otro recuerdo juntos"
+    >
+
+    <div class="puntos-carrusel">
+      <button class="punto activo" aria-label="Foto 1"></button>
+      <button class="punto" aria-label="Foto 2"></button>
+      <button class="punto" aria-label="Foto 3"></button>
+    </div>
+
+  </div>
 
 </div>
 <p>Y ojalá esta página, que me costó muchísimo hacer, pueda hacerte recordar, aunque sea por un ratito, lo especial que sos para mí.</p>
@@ -596,6 +666,76 @@ function cerrarVisorFondo(event){
 document.addEventListener("keydown",function(event){
     if(event.key==="Escape")cerrarVisor();
 });
+  
+/* Carruseles de las fotos 2 y 3 */
+document.querySelectorAll(".carrusel-fotos").forEach(function(carrusel) {
+  const fotos = JSON.parse(carrusel.dataset.fotos);
+  const imagen = carrusel.querySelector("img.foto-recuerdo");
+  const puntos = carrusel.querySelectorAll(".punto");
+
+  let indice = 0;
+  let inicioX = 0;
+  let inicioY = 0;
+  let seDeslizo = false;
+
+  function mostrarFoto(nuevoIndice) {
+    indice = (nuevoIndice + fotos.length) % fotos.length;
+    imagen.src = fotos[indice];
+
+    puntos.forEach(function(punto, i) {
+      punto.classList.toggle("activo", i === indice);
+    });
+  }
+
+  puntos.forEach(function(punto, i) {
+    punto.addEventListener("click", function() {
+      mostrarFoto(i);
+    });
+  });
+
+  carrusel.addEventListener("touchstart", function(event) {
+    if (!event.touches.length) return;
+
+    inicioX = event.touches[0].clientX;
+    inicioY = event.touches[0].clientY;
+    seDeslizo = false;
+  }, { passive: true });
+
+  carrusel.addEventListener("touchend", function(event) {
+    if (!event.changedTouches.length) return;
+
+    const finX = event.changedTouches[0].clientX;
+    const finY = event.changedTouches[0].clientY;
+    const diferenciaX = finX - inicioX;
+    const diferenciaY = finY - inicioY;
+
+    if (
+      Math.abs(diferenciaX) > 40 &&
+      Math.abs(diferenciaX) > Math.abs(diferenciaY)
+    ) {
+      seDeslizo = true;
+
+      if (diferenciaX < 0) {
+        mostrarFoto(indice + 1);
+      } else {
+        mostrarFoto(indice - 1);
+      }
+
+      setTimeout(function() {
+        seDeslizo = false;
+      }, 500);
+    }
+  }, { passive: true });
+
+  /* Evita abrir el visor cuando el usuario acaba de deslizar */
+  imagen.addEventListener("click", function(event) {
+    if (seDeslizo) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, true);
+});
+
 </script>
 
 </body>
