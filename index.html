@@ -324,26 +324,24 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
   }
 }
   
-/* Un pequeño destello que sigue la línea del marco */
+
 .recuerdo-encuadrado {
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
+  --radio-marco: 28px;
 }
 
 .recuerdo-encuadrado::after {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
-  padding: 1px;
+  border-radius: var(--radio-marco);
   pointer-events: none;
 
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    transparent 350deg,
-    rgba(255, 250, 245, 0.75) 356deg,
+    transparent 355deg,
+    rgba(255, 245, 255, 0.9) 358deg,
     transparent 360deg
   );
 
@@ -353,6 +351,7 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 
+  padding: 1px;
   animation: luzMarco 8s linear infinite;
 }
 
@@ -361,7 +360,7 @@ img.foto-recuerdo:hover{transform:scale(1.02)}
     transform: rotate(360deg);
   }
 }
-
+  
   
 </style>
 </head>
