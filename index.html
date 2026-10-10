@@ -669,71 +669,97 @@ document.addEventListener("keydown",function(event){
   
 /* Carruseles de las fotos 2 y 3 */
 document.querySelectorAll(".carrusel-fotos").forEach(function(carrusel) {
-  const fotos = JSON.parse(carrusel.dataset.fotos);
-  const imagen = carrusel.querySelector("img.foto-recuerdo");
-  const puntos = carrusel.querySelectorAll(".punto");
+const fotos = JSON.parse(carrusel.dataset.fotos);
+const imagen = carrusel.querySelector("img.foto-recuerdo");
+const puntos = carrusel.querySelectorAll(".punto");
 
-  let indice = 0;
-  let inicioX = 0;
-  let inicioY = 0;
-  let seDeslizo = false;
+let indice = 0;
+let inicioX = 0;
+let inicioY = 0;
+let bloqueado = false;
 
-  function mostrarFoto(nuevoIndice) {
-    indice = (nuevoIndice + fotos.length) % fotos.length;
-    imagen.src = fotos[indice];
+function actualizarPuntos() {
+puntos.forEach(function(punto, i) {
+punto.classList.toggle("activo", i === indice);
+});
+}
 
-    puntos.forEach(function(punto, i) {
-      punto.classList.toggle("activo", i === indice);
-    });
-  }
+function cambiarFoto(direccion) {
+if (bloqueado) return;
 
-  puntos.forEach(function(punto, i) {
-    punto.addEventListener("click", function() {
-      mostrarFoto(i);
-    });
-  });
+const siguiente = (indice + direccion + fotos.length) % fotos.length;
+const ancho = imagen.getBoundingClientRect().width;
+if (!ancho) return;
 
-  carrusel.addEventListener("touchstart", function(event) {
-    if (!event.touches.length) return;
+bloqueado = true;
 
-    inicioX = event.touches[0].clientX;
-    inicioY = event.touches[0].clientY;
-    seDeslizo = false;
-  }, { passive: true });
+const nueva = document.createElement("img");
+nueva.src = fotos[siguiente];
+nueva.alt = imagen.alt;
+nueva.className = imagen.className;
 
-  carrusel.addEventListener("touchend", function(event) {
-    if (!event.changedTouches.length) return;
+nueva.style.cssText =
+  "position:absolute;top:0;left:0;width:100%;height:100%;" +
+  "object-fit:cover;border-radius:inherit;" +
+  "transform:translateX(" + (direccion > 0 ? ancho : -ancho) + "px);" +
+  "transition:none;pointer-events:none;";
 
-    const finX = event.changedTouches[0].clientX;
-    const finY = event.changedTouches[0].clientY;
-    const diferenciaX = finX - inicioX;
-    const diferenciaY = finY - inicioY;
+carrusel.style.position = "relative";
+carrusel.style.overflow = "hidden";
+imagen.style.transition = "none";
+imagen.style.transform = "translateX(0)";
+carrusel.insertBefore(nueva, carrusel.querySelector(".puntos-carrusel"));
 
-    if (
-      Math.abs(diferenciaX) > 40 &&
-      Math.abs(diferenciaX) > Math.abs(diferenciaY)
-    ) {
-      seDeslizo = true;
+nueva.offsetWidth;
 
-      if (diferenciaX < 0) {
-        mostrarFoto(indice + 1);
-      } else {
-        mostrarFoto(indice - 1);
-      }
+imagen.style.transition = "transform 300ms ease";
+nueva.style.transition = "transform 300ms ease";
 
-      setTimeout(function() {
-        seDeslizo = false;
-      }, 500);
-    }
-  }, { passive: true });
+requestAnimationFrame(function() {
+  imagen.style.transform =
+    "translateX(" + (direccion > 0 ? -ancho : ancho) + "px)";
+  nueva.style.transform = "translateX(0)";
+});
 
-  /* Evita abrir el visor cuando el usuario acaba de deslizar */
-  imagen.addEventListener("click", function(event) {
-    if (seDeslizo) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }
-  }, true);
+setTimeout(function() {
+  indice = siguiente;
+  imagen.src = fotos[indice];
+  imagen.style.transition = "none";
+  imagen.style.transform = "translateX(0)";
+  nueva.remove();
+  actualizarPuntos();
+  bloqueado = false;
+}, 330);
+
+}
+
+puntos.forEach(function(punto, i) {
+punto.addEventListener("click", function() {
+if (i === indice) return;
+
+  cambiarFoto(i > indice ? 1 : -1);
+});
+
+});
+
+carrusel.addEventListener("touchstart", function(event) {
+if (!event.touches.length) return;
+inicioX = event.touches[0].clientX;
+inicioY = event.touches[0].clientY;
+}, { passive: true });
+
+carrusel.addEventListener("touchend", function(event) {
+if (!event.changedTouches.length) return;
+
+const diferenciaX = event.changedTouches[0].clientX - inicioX;
+const diferenciaY = event.changedTouches[0].clientY - inicioY;
+
+if (Math.abs(diferenciaX) > 40 &&
+    Math.abs(diferenciaX) > Math.abs(diferenciaY)) {
+  cambiarFoto(diferenciaX < 0 ? 1 : -1);
+}
+
+}, { passive: true });
 });
 
 </script>
